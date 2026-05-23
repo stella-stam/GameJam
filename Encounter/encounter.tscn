@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dwyclne76ivtt"]
+
+[ext_resource type="Script" path="res://Encounter/Encounter.cs" id="1_ubu8l"]
+
+[node name="Encounter" type="Node2D" unique_id=531138521]
+script = ExtResource("1_ubu8l")

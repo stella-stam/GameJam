@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://nfu6ua5tik5c"
-path="res://.godot/imported/door.png-4ad4ab0c545155655bbef277d86eb152.ctex"
+uid="uid://dj3vru860nouu"
+path="res://.godot/imported/filler_pills.png-728e35c97debc4c17b88ef484a68fd30.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://door.png"
-dest_files=["res://.godot/imported/door.png-4ad4ab0c545155655bbef277d86eb152.ctex"]
+source_file="res://Item/filler_pills.png"
+dest_files=["res://.godot/imported/filler_pills.png-728e35c97debc4c17b88ef484a68fd30.ctex"]
 
 [params]
 
