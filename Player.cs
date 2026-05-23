@@ -8,10 +8,16 @@ public partial class Player : Node2D
 
 	public Vector2 ScreenSize;
 
+	private Borders borders;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		ScreenSize = GetViewportRect().Size;
+
+		borders = GetNode<Borders>("../Borders");
+
+		GD.Print("Borders: ", borders.Position, borders.Size);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -44,14 +50,12 @@ public partial class Player : Node2D
 		{
 			velocity.Y -= 1;
 		}
-
-		var Sprite2D = GetNode<Sprite2D>("Sprite2D");
-
 		
 		Position += velocity * (float)delta * Speed;
+
 		Position = new Vector2(
-			x: Mathf.Clamp(Position.X, 0, ScreenSize.X),
-			y: Mathf.Clamp(Position.Y, 0, ScreenSize.Y)
+			x: Mathf.Clamp(Position.X, borders.Position.X, borders.Position.X + borders.Size.X),
+			y: Mathf.Clamp(Position.Y, borders.Position.Y, borders.Position.Y + borders.Size.Y)
 		);
 
 	}

@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cica38xej4xvn"]
+
+[ext_resource type="Script" uid="uid://6aji52dmdmjv" path="res://Borders.cs" id="1_nnbri"]
+
+[node name="Borders" type="Node2D" unique_id=1990830690]
+position = Vector2(100, 50)
+script = ExtResource("1_nnbri")
