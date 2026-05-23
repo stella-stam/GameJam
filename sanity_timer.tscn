@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://bc5ngnv5oskmf"]
+
+[node name="SanityTimer" type="Timer" unique_id=1490978268]
+wait_time = 3.0

@@ -12,6 +12,8 @@ public partial class Player : CharacterBody2D
 
 	private Item inventory;
 
+	Random rng;
+
 	// Takes value in [0, 1], 0 is insanity, 1 is full sanity
 	private double sanity = 1.0;
 
@@ -21,12 +23,13 @@ public partial class Player : CharacterBody2D
 		ScreenSize = GetViewportRect().Size;
 
 		sanity = 1.0;
+
+		rng = new Random();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -36,11 +39,6 @@ public partial class Player : CharacterBody2D
 		handle_pick_up();
 
 		handle_use();
-	}
-
-	private void OnArea2dAreaEntered(Area2D area) 
-	{
-		pickupable_item = area.GetParent<Item>();
 	}
 
 	private void handle_input_movement(double delta)
@@ -97,5 +95,16 @@ public partial class Player : CharacterBody2D
 
 			inventory = null;
 		}
+	}
+
+	private void OnArea2dAreaEntered(Area2D area) 
+	{
+		pickupable_item = area.GetParent<Item>();
+	}
+
+	private void OnSanityTimerTimeout() {
+		sanity = Math.Clamp(sanity - rng.NextSingle() * 0.1, 0.0, 1.0);
+
+		GD.Print("sanity: ", sanity);
 	}
 }

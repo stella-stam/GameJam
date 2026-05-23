@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c1fo2g8yx01c0" path="res://player.tscn" id="2_h2yge"]
 [ext_resource type="PackedScene" uid="uid://btxytpjopv6x6" path="res://dialogue_sys.tscn" id="3_h2yge"]
 [ext_resource type="PackedScene" uid="uid://bq4lkswfm433n" path="res://inside_background.tscn" id="4_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://bc5ngnv5oskmf" path="res://sanity_timer.tscn" id="7_272bh"]
 
 [sub_resource type="CSharpScript" id="CSharpScript_1bvp3"]
 script/source = "using Godot;
@@ -58,3 +59,9 @@ offset_right = 527.0
 [node name="Item" parent="." unique_id=1101001868 instance=ExtResource("1_lquwl")]
 position = Vector2(30, 81)
 ID = "antipsychotics"
+
+[node name="SanityTimer" parent="." unique_id=1490978268 instance=ExtResource("7_272bh")]
+wait_time = 30.0
+autostart = true
+
+[connection signal="timeout" from="SanityTimer" to="Player" method="OnSanityTimerTimeout"]
