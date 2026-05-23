@@ -12,10 +12,15 @@ public partial class Player : CharacterBody2D
 
 	private Item inventory;
 
+	// Takes value in [0, 1], 0 is insanity, 1 is full sanity
+	private double sanity = 1.0;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		ScreenSize = GetViewportRect().Size;
+
+		sanity = 1.0;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -28,10 +33,9 @@ public partial class Player : CharacterBody2D
 	{
 		handle_input_movement(delta);
 
-		if (Input.IsActionPressed("pick_up"))
-		{
-			handle_pick_up();
-		}
+		handle_pick_up();
+
+		handle_use();
 	}
 
 	private void OnArea2dAreaEntered(Area2D area) 
@@ -72,13 +76,26 @@ public partial class Player : CharacterBody2D
 
 	private void handle_pick_up()
 	{
-		if (pickupable_item != null)
-		{
+		if (Input.IsActionPressed("pick_up") && pickupable_item != null) {
 			inventory = pickupable_item;
 			pickupable_item = null;
 			inventory.QueueFree();
 
-			GD.Print("Inventory contains: ", inventory.Title);
-		} 
+			GD.Print("Inventory contains: ", inventory.ID);
+		}
+	}
+
+	private void handle_use()
+	{
+		if (Input.IsActionPressed("use") && inventory != null) {
+			GD.Print("use triggered");
+			if (inventory.ID == "antipsychotics") {
+				sanity = Math.Clamp(sanity + 0.4, 0.0, 1.0);
+
+				GD.Print("Sanity: ", sanity);
+			}
+
+			inventory = null;
+		}
 	}
 }

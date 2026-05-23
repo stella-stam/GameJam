@@ -21,9 +21,9 @@
 		- monster_portrait = false
 		- bizarre_order = false
     - 1: human u think is monster
-		- evil_sfx_trigger = rand(0, 1) DEPENDENT ON SANITY VALUE
-		- monster_portrait = same PROCESS as above (not value)
-		- bizarre_order = same PROCESS as above (not value)
+		- evil_sfx_trigger = rand(0, 1) > sanity
+		- monster_portrait = rand(0, 1) > sanity
+		- bizarre_order = rand(0, 1) > sanity
     - 2: monster
 		- evil_sfx_trigger = true
 		- monster_portrait = true

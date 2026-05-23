@@ -56,5 +56,5 @@ offset_left = 27.0
 offset_right = 527.0
 
 [node name="Item" parent="." unique_id=1101001868 instance=ExtResource("1_lquwl")]
-position = Vector2(35, 89)
-Title = "Pink Lemonade"
+position = Vector2(30, 81)
+ID = "antipsychotics"

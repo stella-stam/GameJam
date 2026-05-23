@@ -4,7 +4,7 @@ using System;
 public partial class Item : Node2D
 {
 	[Export]
-	public string Title { get; set;} = "Filler Item";
+	public string ID { get; set;} = "Filler Item";
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
