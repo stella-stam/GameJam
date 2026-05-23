@@ -47,7 +47,7 @@ public partial class Player : CharacterBody2D
 		// Wait for 20-60 seconds for first encounter
 		encounterTimer.WaitTime = rng.Next(2, 6);
 
-		encounter = (encounterType)rng.Next(0, 4);
+		encounter = selectEncounter();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -149,5 +149,31 @@ public partial class Player : CharacterBody2D
 	private void NearDoor(Area2D area)
 	{
 		nearDoor = true;
+	}
+
+	private void encounterType selectEncounter()
+	{
+		double probability_of_hallucination = (1 - sanity) * 0.8;
+
+		double probability_of_others = 1 - probability_of_hallucination;
+
+		double random_number = rng.Next();
+
+		if (random_number < probability_of_hallucination) {
+			encouter = 1
+		}
+
+		else if (random_number < probability_of_hallucination + probability_of_others) {
+			encounter = 0
+		}
+
+		else if (random_number < probability_of_hallucination + 2 * probability_of_others)  {
+			encounter = 2
+		}
+
+		else  {
+			encounter = 3
+		}
+
 	}
 }
