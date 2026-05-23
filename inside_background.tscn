@@ -12,10 +12,11 @@ size = Vector2(539, 24)
 [node name="InsideBackground" type="ColorRect" unique_id=97440080]
 anchors_preset = -1
 anchor_bottom = 0.002
-offset_right = 500.0
-offset_bottom = 498.704
+offset_left = 107.0
+offset_top = 25.0
+offset_right = 607.0
+offset_bottom = 523.704
 color = Color(1, 0.42352942, 1, 0.52156866)
-metadata/_edit_group_ = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=632491391]
 
@@ -28,7 +29,7 @@ position = Vector2(-12.25, 250.5)
 shape = SubResource("RectangleShape2D_jjvsh")
 
 [node name="UpWall" type="CollisionShape2D" parent="StaticBody2D" unique_id=1097861291]
-position = Vector2(250, -15)
+position = Vector2(253, -13)
 shape = SubResource("RectangleShape2D_0fk43")
 
 [node name="DownWall" type="CollisionShape2D" parent="StaticBody2D" unique_id=1536208674]

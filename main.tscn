@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cica38xej4xvn" path="res://borders.tscn" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://bbuiv3e1uh641" path="res://outside_background.tscn" id="1_h2yge"]
+[ext_resource type="PackedScene" uid="uid://bqv4imnwcl2vm" path="res://item.tscn" id="1_lquwl"]
 [ext_resource type="PackedScene" uid="uid://c1fo2g8yx01c0" path="res://player.tscn" id="2_h2yge"]
 [ext_resource type="PackedScene" uid="uid://bq4lkswfm433n" path="res://inside_background.tscn" id="4_1bvp3"]
 
@@ -37,9 +38,20 @@ public partial class InsideBackground : ColorRect
 script = SubResource("CSharpScript_1bvp3")
 
 [node name="OutsideBackground" parent="." unique_id=954898329 instance=ExtResource("1_h2yge")]
+offset_left = -3.0
+offset_top = 3.0
+offset_right = 997.0
+offset_bottom = 1003.0
 
 [node name="Borders" parent="." unique_id=1990830690 instance=ExtResource("1_0xm2m")]
 
 [node name="Player" parent="." unique_id=466466734 instance=ExtResource("2_h2yge")]
+position = Vector2(214, 126)
 
 [node name="InsideBackground" parent="." unique_id=97440080 instance=ExtResource("4_1bvp3")]
+offset_left = 27.0
+offset_right = 527.0
+
+[node name="Item" parent="." unique_id=1101001868 instance=ExtResource("1_lquwl")]
+position = Vector2(35, 89)
+Title = "Pink Lemonade"

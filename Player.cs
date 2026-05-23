@@ -8,6 +8,10 @@ public partial class Player : CharacterBody2D
 
 	public Vector2 ScreenSize;
 
+	private Item pickupable_item;
+
+	private Item inventory;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -18,6 +22,21 @@ public partial class Player : CharacterBody2D
 	public override void _Process(double delta)
 	{
 
+	}
+
+	public override void _PhysicsProcess(double delta)
+	{
+		handle_input_movement(delta);
+
+		if (Input.IsActionPressed("pick_up"))
+		{
+			handle_pick_up();
+		}
+	}
+
+	private void OnArea2dAreaEntered(Area2D area) 
+	{
+		pickupable_item = area.GetParent<Item>();
 	}
 
 	private void handle_input_movement(double delta)
@@ -51,8 +70,15 @@ public partial class Player : CharacterBody2D
 		MoveAndSlide();
 	}
 
-	public override void _PhysicsProcess(double delta)
+	private void handle_pick_up()
 	{
-		handle_input_movement(delta);
+		if (pickupable_item != null)
+		{
+			inventory = pickupable_item;
+			pickupable_item = null;
+			inventory.QueueFree();
+
+			GD.Print("Inventory contains: ", inventory.Title);
+		} 
 	}
 }
