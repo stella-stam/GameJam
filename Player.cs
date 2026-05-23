@@ -3,6 +3,14 @@ using System;
 
 public partial class Player : CharacterBody2D
 {
+	private enum encounterType
+	{
+		Human,			 // 0: Human you think is human
+		Hallucination,   // 1: Human you think is monster
+		Monster,		 // 2: Monster 
+		Mimic 			 // 3: Monster disguised as human
+	}
+
 	[Export]
 	public int Speed { get; set;} = 400;
 
@@ -13,6 +21,12 @@ public partial class Player : CharacterBody2D
 	private Item inventory;
 
 	Random rng;
+
+	encounterType encounter;
+
+	Timer encounterTimer;
+
+	bool encounterAtDoor = false;
 
 	// Takes value in [0, 1], 0 is insanity, 1 is full sanity
 	private double sanity = 1.0;
@@ -25,6 +39,13 @@ public partial class Player : CharacterBody2D
 		sanity = 1.0;
 
 		rng = new Random();
+
+		encounterTimer = GetNode<EncounterTimer>("../EncounterTimer");
+
+		// Wait for 20-60 seconds for first encounter
+		encounterTimer.WaitTime = rng.Next(2, 6);
+
+		encounter = (encounterType)rng.Next(0, 4);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -102,9 +123,15 @@ public partial class Player : CharacterBody2D
 		pickupable_item = area.GetParent<Item>();
 	}
 
-	private void OnSanityTimerTimeout() {
+	private void OnSanityTimerTimeout() 
+	{
 		sanity = Math.Clamp(sanity - rng.NextSingle() * 0.1, 0.0, 1.0);
 
 		GD.Print("sanity: ", sanity);
+	}
+
+	private void OnEncounterTimerTimeout()
+	{
+		encounterAtDoor = true;
 	}
 }

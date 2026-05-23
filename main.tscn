@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://btxytpjopv6x6" path="res://dialogue_sys.tscn" id="3_h2yge"]
 [ext_resource type="PackedScene" uid="uid://bq4lkswfm433n" path="res://inside_background.tscn" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://bc5ngnv5oskmf" path="res://sanity_timer.tscn" id="7_272bh"]
+[ext_resource type="PackedScene" uid="uid://cnduqyrk0qg2w" path="res://encounter_timer.tscn" id="8_kek77"]
+[ext_resource type="Script" uid="uid://d3bbqmxaw8ywq" path="res://EncounterTimer.cs" id="9_4c57u"]
 
 [sub_resource type="CSharpScript" id="CSharpScript_1bvp3"]
 script/source = "using Godot;
@@ -64,4 +66,8 @@ ID = "antipsychotics"
 wait_time = 30.0
 autostart = true
 
+[node name="EncounterTimer" parent="." unique_id=893486501 instance=ExtResource("8_kek77")]
+script = ExtResource("9_4c57u")
+
 [connection signal="timeout" from="SanityTimer" to="Player" method="OnSanityTimerTimeout"]
+[connection signal="timeout" from="EncounterTimer" to="Player" method="OnEncounterTimerTimeout"]
