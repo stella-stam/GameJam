@@ -28,6 +28,8 @@ public partial class Player : CharacterBody2D
 
 	bool encounterAtDoor = false;
 
+	bool nearDoor = false;
+
 	// Takes value in [0, 1], 0 is insanity, 1 is full sanity
 	private double sanity = 1.0;
 
@@ -95,12 +97,21 @@ public partial class Player : CharacterBody2D
 
 	private void handle_pick_up()
 	{
-		if (Input.IsActionPressed("pick_up") && pickupable_item != null) {
-			inventory = pickupable_item;
-			pickupable_item = null;
-			inventory.QueueFree();
+		if (Input.IsActionPressed("pick_up")) {
+			if (pickupable_item != null) 
+			{
+				inventory = pickupable_item;
+				pickupable_item = null;
+				inventory.QueueFree();
 
-			GD.Print("Inventory contains: ", inventory.ID);
+				GD.Print("Inventory contains: ", inventory.ID);
+			}
+
+			else if (nearDoor)
+			{
+				GD.Print("opening door");
+				// TODO: trigger dialogue according to encounter type
+			}
 		}
 	}
 
@@ -131,7 +142,12 @@ public partial class Player : CharacterBody2D
 	}
 
 	private void OnEncounterTimerTimeout()
-	{
+	{	
 		encounterAtDoor = true;
+	}
+
+	private void NearDoor(Area2D area)
+	{
+		nearDoor = true;
 	}
 }

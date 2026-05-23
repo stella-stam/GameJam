@@ -9,26 +9,18 @@
 [ext_resource type="PackedScene" uid="uid://bc5ngnv5oskmf" path="res://sanity_timer.tscn" id="7_272bh"]
 [ext_resource type="PackedScene" uid="uid://cnduqyrk0qg2w" path="res://encounter_timer.tscn" id="8_kek77"]
 [ext_resource type="Script" uid="uid://d3bbqmxaw8ywq" path="res://EncounterTimer.cs" id="9_4c57u"]
+[ext_resource type="PackedScene" uid="uid://ddpa3ir16yux5" path="res://door.tscn" id="10_4c57u"]
+[ext_resource type="Script" uid="uid://b3xb6qid4qi4p" path="res://Door.cs" id="11_efxa6"]
 
-[sub_resource type="CSharpScript" id="CSharpScript_1bvp3"]
+[sub_resource type="CSharpScript" id="CSharpScript_efxa6"]
 script/source = "using Godot;
 using System;
 
-public partial class InsideBackground : ColorRect
+public partial class Door : Node2D
 {
-	private Borders borders;
-
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		borders = GetNode<Borders>(\"../Borders\");
-
-		Position = new Vector2(
-			x: borders.Position.X,
-			y: borders.Position.Y
-		);
-
-		Size = borders.Size;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -39,7 +31,7 @@ public partial class InsideBackground : ColorRect
 "
 
 [node name="Main" type="Node2D" unique_id=559459927]
-script = SubResource("CSharpScript_1bvp3")
+script = ExtResource("11_efxa6")
 
 [node name="DialogueSys" parent="." unique_id=1990516895 instance=ExtResource("3_h2yge")]
 
@@ -69,5 +61,12 @@ autostart = true
 [node name="EncounterTimer" parent="." unique_id=893486501 instance=ExtResource("8_kek77")]
 script = ExtResource("9_4c57u")
 
+[node name="Door" parent="." unique_id=1232092062 instance=ExtResource("10_4c57u")]
+position = Vector2(501, 416)
+script = SubResource("CSharpScript_efxa6")
+
 [connection signal="timeout" from="SanityTimer" to="Player" method="OnSanityTimerTimeout"]
 [connection signal="timeout" from="EncounterTimer" to="Player" method="OnEncounterTimerTimeout"]
+[connection signal="area_entered" from="Door/Area2D" to="Player" method="NearDoor"]
+
+[editable path="Door"]

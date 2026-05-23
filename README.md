@@ -9,8 +9,9 @@
 - HUD inventory display (1 slot)
 
 ## Dialogue
-- normal orders
-- bizarre orders
+- Player.cs: handle_pick_up(), handle opening the door so the dialogue triggers according to the encounter type
+	- normal/bizarre orders
+	- human/monster portait
 
 ## Encounters
 - roll die for x seconds to wait for (time_wait_encounter)
