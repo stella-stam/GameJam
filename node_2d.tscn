@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://bpgctqjjg1go4"]
 
-[ext_resource type="Script" uid="uid://bafpnvurhfdb6" path="res://Node2d.cs" id="1_wtcfe"]
+[ext_resource type="Script" uid="uid://cexl4jpebxkfe" path="res://Player.cs" id="1_wtcfe"]
 
-[node name="Node2D" type="Node2D" unique_id=143483703]
+[node name="Player" type="Node2D" unique_id=143483703]
 script = ExtResource("1_wtcfe")
 
 [node name="RigidBody2D" type="RigidBody2D" parent="." unique_id=2101531498]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D" unique_id=1530566899]
