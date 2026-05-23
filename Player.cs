@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Node2d : Node2D
+public partial class Player : Node2D
 {
 	[Export]
 	public int Speed { get; set;} = 400;
@@ -11,6 +11,7 @@ public partial class Node2d : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		ScreenSize = GetViewportRect().Size;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -25,6 +26,7 @@ public partial class Node2d : Node2D
 
 		if (Input.IsActionPressed("right"))
 		{
+			GD.Print("right pressed");
 			velocity.X += 1;
 		}
 
@@ -43,35 +45,14 @@ public partial class Node2d : Node2D
 			velocity.Y -= 1;
 		}
 
-		var animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+		var Sprite2D = GetNode<Sprite2D>("Sprite2D");
 
-		if (velocity.Length() > 0)
-		{
-			velocity = velocity.Normalized() * Speed;
-			animatedSprite2D.Play();
-		}
-		else
-		{
-			animatedSprite2D.Stop();
-		}
-
-		Position += velocity * (float)delta;
+		
+		Position += velocity * (float)delta * Speed;
 		Position = new Vector2(
 			x: Mathf.Clamp(Position.X, 0, ScreenSize.X),
 			y: Mathf.Clamp(Position.Y, 0, ScreenSize.Y)
 		);
 
-		if (velocity.X != 0)
-		{
-			animatedSprite2D.Animation = "walk";
-			animatedSprite2D.FlipV = false;
-			// See the note below about the following boolean assignment.
-			animatedSprite2D.FlipH = velocity.X < 0;
-		}
-		else if (velocity.Y != 0)
-		{
-			animatedSprite2D.Animation = "up";
-			animatedSprite2D.FlipV = velocity.Y > 0;
-		}
 	}
 }
