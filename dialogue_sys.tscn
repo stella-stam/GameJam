@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://btxytpjopv6x6"]
+
+[ext_resource type="Script" uid="uid://bwtuxyssly70x" path="res://dialogueSys/DialogueSystem.cs" id="1_0gu6c"]
+[ext_resource type="Texture2D" uid="uid://1c7uwhxh0v0q" path="res://icon.svg" id="2_8sso7"]
+
+[sub_resource type="Theme" id="Theme_h2yge"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1bvp3"]
+font_size = 36
+
+[sub_resource type="LabelSettings" id="LabelSettings_lquwl"]
+font_size = 24
+
+[node name="DialogueSys" type="Node" unique_id=1990516895 node_paths=PackedStringArray("textboxUI", "textbox")]
+script = ExtResource("1_0gu6c")
+textboxUI = NodePath("CanvasLayer")
+textbox = NodePath("CanvasLayer/MarginContainer/Panel/MarginContainer/dialogueText")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=257565374]
+
+[node name="Background" type="Sprite2D" parent="CanvasLayer" unique_id=2006515012]
+visible = false
+scale = Vector2(23.653395, 13.827654)
+texture = ExtResource("2_8sso7")
+
+[node name="Character" type="Sprite2D" parent="CanvasLayer" unique_id=1125230672]
+visible = false
+position = Vector2(102, 349)
+texture = ExtResource("2_8sso7")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer" unique_id=654801142]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -220.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Panel" type="Panel" parent="CanvasLayer/MarginContainer" unique_id=902989873]
+layout_mode = 2
+theme = SubResource("Theme_h2yge")
+
+[node name="speakerName" type="Label" parent="CanvasLayer/MarginContainer/Panel" unique_id=22697151]
+clip_contents = true
+layout_mode = 0
+offset_left = 12.0
+offset_top = -20.0
+offset_right = 1114.0
+offset_bottom = 160.0
+size_flags_vertical = 3
+text = "Character"
+label_settings = SubResource("LabelSettings_1bvp3")
+autowrap_mode = 2
+clip_text = true
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/Panel" unique_id=1396457323]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="dialogueText" type="Label" parent="CanvasLayer/MarginContainer/Panel/MarginContainer" unique_id=1281721897]
+layout_mode = 2
+size_flags_vertical = 3
+text = "the quick red fox jumps over the lazy brown dog,the quick red fox jumps over the lazy brown dog,the quick red fox jumps over the lazy brown dogthe quick red fox jumps over the lazy brown dogthe quick red fox jumps over the lazy brown dogthe quick red fox jumps over the lazy brown dogthe quick red fox jumps over the lazy brown dogthe quick red fox jumps over the lazy brown dog"
+label_settings = SubResource("LabelSettings_lquwl")
+autowrap_mode = 2
+clip_text = true
+
+[node name="HBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/Panel/MarginContainer" unique_id=1137098841]
+layout_mode = 2

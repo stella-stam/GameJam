@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bbuiv3e1uh641" path="res://outside_background.tscn" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://bqv4imnwcl2vm" path="res://item.tscn" id="1_lquwl"]
 [ext_resource type="PackedScene" uid="uid://c1fo2g8yx01c0" path="res://player.tscn" id="2_h2yge"]
+[ext_resource type="PackedScene" uid="uid://btxytpjopv6x6" path="res://dialogue_sys.tscn" id="3_h2yge"]
 [ext_resource type="PackedScene" uid="uid://bq4lkswfm433n" path="res://inside_background.tscn" id="4_1bvp3"]
 
 [sub_resource type="CSharpScript" id="CSharpScript_1bvp3"]
@@ -36,6 +37,8 @@ public partial class InsideBackground : ColorRect
 
 [node name="Main" type="Node2D" unique_id=559459927]
 script = SubResource("CSharpScript_1bvp3")
+
+[node name="DialogueSys" parent="." unique_id=1990516895 instance=ExtResource("3_h2yge")]
 
 [node name="OutsideBackground" parent="." unique_id=954898329 instance=ExtResource("1_h2yge")]
 offset_left = -3.0
