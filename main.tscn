@@ -1,10 +1,45 @@
 [gd_scene format=3 uid="uid://d2syatk0fq20k"]
 
 [ext_resource type="PackedScene" uid="uid://cica38xej4xvn" path="res://borders.tscn" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://bbuiv3e1uh641" path="res://outside_background.tscn" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://c1fo2g8yx01c0" path="res://player.tscn" id="2_h2yge"]
+[ext_resource type="PackedScene" uid="uid://bq4lkswfm433n" path="res://inside_background.tscn" id="4_1bvp3"]
+
+[sub_resource type="CSharpScript" id="CSharpScript_1bvp3"]
+script/source = "using Godot;
+using System;
+
+public partial class InsideBackground : ColorRect
+{
+	private Borders borders;
+
+	// Called when the node enters the scene tree for the first time.
+	public override void _Ready()
+	{
+		borders = GetNode<Borders>(\"../Borders\");
+
+		Position = new Vector2(
+			x: borders.Position.X,
+			y: borders.Position.Y
+		);
+
+		Size = borders.Size;
+	}
+
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta)
+	{
+	}
+}
+"
 
 [node name="Main" type="Node2D" unique_id=559459927]
+script = SubResource("CSharpScript_1bvp3")
+
+[node name="OutsideBackground" parent="." unique_id=954898329 instance=ExtResource("1_h2yge")]
 
 [node name="Borders" parent="." unique_id=1990830690 instance=ExtResource("1_0xm2m")]
 
 [node name="Player" parent="." unique_id=466466734 instance=ExtResource("2_h2yge")]
+
+[node name="InsideBackground" parent="." unique_id=97440080 instance=ExtResource("4_1bvp3")]

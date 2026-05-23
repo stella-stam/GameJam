@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bbuiv3e1uh641"]
+
+[node name="OutsideBackground" type="ColorRect" unique_id=954898329]
+offset_right = 1000.0
+offset_bottom = 1000.0
+color = Color(0, 0, 0, 1)
