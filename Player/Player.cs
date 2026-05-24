@@ -15,9 +15,6 @@ public partial class Player : CharacterBody2D
 
 	Vector2 screenSize;
 
-	// Takes value in [0, 1], 0 is insanity, 1 is full sanity
-	public double sanity = 1.0;
-
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -95,22 +92,9 @@ public partial class Player : CharacterBody2D
 		if (Input.IsActionPressed("use") && inventory != null)
 		{
 			GD.Print("use triggered");
-			if (inventory.ID == "antipsychotics")
-			{
-				sanity = Math.Clamp(sanity + 0.4, 0.0, 1.0);
-
-				GD.Print("Sanity: ", sanity);
-			}
 
 			inventory = null;
 		}
-	}
-
-	private void OnSanityTimerTimeout()
-	{
-		sanity = Math.Clamp(sanity - rng.NextSingle() * 0.1, 0.0, 1.0);
-
-		GD.Print("sanity: ", sanity);
 	}
 
 	private void OnAreaEntered(Area2D area)

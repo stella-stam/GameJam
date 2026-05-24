@@ -8,19 +8,21 @@
 [ext_resource type="PackedScene" uid="uid://btxytpjopv6x6" path="res://dialogue_sys.tscn" id="3_h2yge"]
 [ext_resource type="PackedScene" uid="uid://bq4lkswfm433n" path="res://Environment/inside_background.tscn" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://bc5ngnv5oskmf" path="res://Player/sanity_timer.tscn" id="7_272bh"]
+[ext_resource type="Script" uid="uid://d0o2qor1oui54" path="res://Player/SanityTimer.cs" id="7_efxa6"]
 [ext_resource type="PackedScene" uid="uid://ddpa3ir16yux5" path="res://Environment/door.tscn" id="10_4c57u"]
 [ext_resource type="Script" uid="uid://b3xb6qid4qi4p" path="res://Environment/Door.cs" id="10_ycdy4"]
 [ext_resource type="PackedScene" uid="uid://nmagtld1a2ko" path="res://Item/item.tscn" id="12_w48qg"]
 
 [node name="Main" type="Node2D" unique_id=559459927]
 
-[node name="GameManager" type="Node" parent="." unique_id=989165233 node_paths=PackedStringArray("dialogueSys", "encounterSys", "player")]
+[node name="GameManager" type="Node" parent="." unique_id=989165233 node_paths=PackedStringArray("dialogueSys", "player")]
 script = ExtResource("1_w48qg")
 dialogueSys = NodePath("DialogueSys")
-encounterSys = NodePath("")
 player = NodePath("../Player")
 
 [node name="DialogueSys" parent="GameManager" unique_id=1990516895 instance=ExtResource("3_h2yge")]
+
+[node name="EncounterSys" parent="GameManager" unique_id=1265623903 instance=ExtResource("3_efxa6")]
 
 [node name="OutsideBackground" parent="." unique_id=954898329 instance=ExtResource("1_h2yge")]
 offset_left = -3.0
@@ -34,7 +36,9 @@ offset_bottom = 1003.0
 position = Vector2(214, 126)
 
 [node name="SanityTimer" parent="Player" unique_id=1490978268 instance=ExtResource("7_272bh")]
+wait_time = 30.0
 autostart = true
+script = ExtResource("7_efxa6")
 
 [node name="InsideBackground" parent="." unique_id=97440080 instance=ExtResource("4_1bvp3")]
 offset_left = 27.0
