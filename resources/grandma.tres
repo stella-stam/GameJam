@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Character" format=3 uid="uid://bq1a2ikm7mp2p"]
+
+[ext_resource type="Script" uid="uid://8qt6hv8etxr5" path="res://dialogueSys/Character.cs" id="1_kgpin"]
+[ext_resource type="Texture2D" uid="uid://rdugbkdkiqy7" path="res://assets/npc2.png" id="2_vyo2m"]
+
+[resource]
+script = ExtResource("1_kgpin")
+sprite = ExtResource("2_vyo2m")
+metadata/_custom_type_script = "uid://8qt6hv8etxr5"

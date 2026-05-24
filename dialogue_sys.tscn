@@ -21,6 +21,7 @@ Opt1Button = NodePath("CanvasLayer/Control/Panel2/MarginContainer/VBoxContainer/
 Opt2Button = NodePath("CanvasLayer/Control/Panel2/MarginContainer/VBoxContainer/Button2")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=257565374]
+visible = false
 
 [node name="Background" type="Sprite2D" parent="CanvasLayer" unique_id=2006515012]
 visible = false

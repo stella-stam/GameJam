@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="Character" format=3 uid="uid://cc76wfcmol4jt"]
 
 [ext_resource type="Script" uid="uid://8qt6hv8etxr5" path="res://dialogueSys/Character.cs" id="1_lghas"]
+[ext_resource type="Texture2D" uid="uid://e2kr26y4i2wu" path="res://assets/npc1.png" id="2_4unwu"]
 
 [resource]
 script = ExtResource("1_lghas")

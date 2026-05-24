@@ -1,4 +1,7 @@
+using System;
+using System.Collections.Generic;
 using Godot;
+using Godot.Collections;
 
 public partial class GameManager : Node
 {
@@ -10,6 +13,8 @@ public partial class GameManager : Node
     [Export]
     public Player player;
 
+    [Export]
+    public Array<Character> list;
 
     public override void _Ready()
     {

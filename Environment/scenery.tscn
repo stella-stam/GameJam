@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://cuo2x8xpii4qj"]
+
+[ext_resource type="PackedScene" uid="uid://bbuiv3e1uh641" path="res://Environment/outside_background.tscn" id="1_bx1en"]
+[ext_resource type="Texture2D" uid="uid://clmgs7u4yo8ph" path="res://stage.png" id="1_fukd1"]
+[ext_resource type="Texture2D" uid="uid://isxf5ib2hugn" path="res://new_gradient_texture_2d_sh.tres" id="3_nlujw"]
+[ext_resource type="Texture2D" uid="uid://7unnumeg0jeq" path="res://new_gradient_texture_2d.tres" id="4_vv3km"]
+
+[node name="Scenery" type="Node2D" unique_id=1815645819]
+
+[node name="OutsideBackground" parent="." unique_id=954898329 instance=ExtResource("1_bx1en")]
+offset_left = -26.0
+offset_top = -105.0
+offset_right = 1191.0
+offset_bottom = 895.0
+pivot_offset = Vector2(392, 731)
+
+[node name="Stage" type="Sprite2D" parent="." unique_id=1507374026]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(577, 354)
+scale = Vector2(2.0107927, 2.0107927)
+texture = ExtResource("1_fukd1")
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="." unique_id=1361283530]
+position = Vector2(-26, -105)
+blend_mode = 1
+
+[node name="PointLight2D4" type="PointLight2D" parent="." unique_id=1283282107]
+position = Vector2(558, 334)
+scale = Vector2(1.2499105, 0.6099129)
+color = Color(0.8666667, 1, 1, 1)
+energy = 0.9
+texture = ExtResource("3_nlujw")
+texture_scale = 6.0
+
+[node name="PointLight2D3" type="PointLight2D" parent="." unique_id=1730417232]
+position = Vector2(301, 344)
+scale = Vector2(0.36043257, 0.36043257)
+color = Color(0.8666667, 1, 1, 1)
+energy = 0.61
+texture = ExtResource("4_vv3km")
+texture_scale = 9.97
+
+[node name="doorlight" type="PointLight2D" parent="." unique_id=1583405468]
+position = Vector2(972, 344)
+scale = Vector2(0.36043257, 0.36043257)
+color = Color(0.8666667, 1, 1, 1)
+energy = 0.61
+texture = ExtResource("4_vv3km")
+texture_scale = 9.97
+
+[node name="ominous" type="PointLight2D" parent="." unique_id=837728518]
+visible = false
+position = Vector2(963, 344)
+scale = Vector2(0.36043257, 0.36043257)
+color = Color(0.19966345, 0, 0, 0.29500002)
+energy = 18.81
+blend_mode = 2
+texture = ExtResource("4_vv3km")
+texture_scale = 9.97
