@@ -13,13 +13,8 @@ public partial class Encounter : Node2D
 
 	Random rng = new Random();
 
-	EncounterType encounter;
-	public EncounterType EncounterTypeOngoing => encounter;
-
-	[Export]
-	Timer encounterTimer;
-	[Export]
-	Timer encounterSoundTimer;
+	EncounterType _type;
+	public EncounterType type => _type;
 
 	double playerSanity;
 
@@ -28,16 +23,6 @@ public partial class Encounter : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		// Wait for 20-60 seconds for first encounter
-		encounterTimer.WaitTime = rng.Next(2, 6);
-
-		// Wait a bit less to start encounter SFX (if necessary)
-		if (encounter != EncounterType.Human)
-		{
-			encounterSoundTimer.WaitTime = encounterTimer.WaitTime * rng.Next();
-		}
-
-		selectEncounter();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -56,7 +41,7 @@ public partial class Encounter : Node2D
 
 	}
 
-	private void selectEncounter()
+	public void SelectEncounter()
 	{
 		double probabilityOfHallucination = (1 - playerSanity) * 0.8;
 
@@ -66,22 +51,22 @@ public partial class Encounter : Node2D
 
 		if (randomNumber < probabilityOfHallucination)
 		{
-			encounter = (EncounterType)1;
+			_type = (EncounterType)1;
 		}
 
 		else if (randomNumber < probabilityOfHallucination + probabilityOfOthers)
 		{
-			encounter = (EncounterType)0;
+			_type = (EncounterType)0;
 		}
 
 		else if (randomNumber < probabilityOfHallucination + 2 * probabilityOfOthers)
 		{
-			encounter = (EncounterType)2;
+			_type = (EncounterType)2;
 		}
 
 		else
 		{
-			encounter = (EncounterType)3;
+			_type = (EncounterType)3;
 		}
 	}
 }

@@ -4,15 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://bbuiv3e1uh641" path="res://Environment/outside_background.tscn" id="1_h2yge"]
 [ext_resource type="Script" uid="uid://ct4qbximpgffi" path="res://GameManager.cs" id="1_w48qg"]
 [ext_resource type="PackedScene" uid="uid://c1fo2g8yx01c0" path="res://Player/player.tscn" id="2_h2yge"]
+[ext_resource type="PackedScene" uid="uid://c5dcqyg6ly6px" path="res://EncounterSys/encounter_system.tscn" id="3_efxa6"]
 [ext_resource type="PackedScene" uid="uid://btxytpjopv6x6" path="res://dialogue_sys.tscn" id="3_h2yge"]
 [ext_resource type="PackedScene" uid="uid://bq4lkswfm433n" path="res://Environment/inside_background.tscn" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://bc5ngnv5oskmf" path="res://Player/sanity_timer.tscn" id="7_272bh"]
-[ext_resource type="PackedScene" uid="uid://cnduqyrk0qg2w" path="res://Encounter/encounter_timer.tscn" id="8_kek77"]
-[ext_resource type="Script" uid="uid://d3bbqmxaw8ywq" path="res://Encounter/EncounterTimer.cs" id="9_4c57u"]
 [ext_resource type="PackedScene" uid="uid://ddpa3ir16yux5" path="res://Environment/door.tscn" id="10_4c57u"]
-[ext_resource type="PackedScene" uid="uid://le5u85pcvjsd" path="res://Encounter/encounter_sound_timer.tscn" id="10_dg77c"]
 [ext_resource type="Script" uid="uid://b3xb6qid4qi4p" path="res://Environment/Door.cs" id="10_ycdy4"]
-[ext_resource type="PackedScene" uid="uid://dwyclne76ivtt" path="res://Encounter/encounter.tscn" id="11_ycdy4"]
 [ext_resource type="PackedScene" uid="uid://nmagtld1a2ko" path="res://Item/item.tscn" id="12_w48qg"]
 
 [node name="Main" type="Node2D" unique_id=559459927]
@@ -20,21 +17,10 @@
 [node name="GameManager" type="Node" parent="." unique_id=989165233 node_paths=PackedStringArray("dialogueSys", "encounterSys", "player")]
 script = ExtResource("1_w48qg")
 dialogueSys = NodePath("DialogueSys")
-encounterSys = NodePath("Encounter")
+encounterSys = NodePath("")
 player = NodePath("../Player")
 
-[node name="Node" type="Node" parent="GameManager" unique_id=2025598432]
-
 [node name="DialogueSys" parent="GameManager" unique_id=1990516895 instance=ExtResource("3_h2yge")]
-
-[node name="Encounter" parent="GameManager" unique_id=531138521 node_paths=PackedStringArray("encounterTimer", "encounterSoundTimer") instance=ExtResource("11_ycdy4")]
-encounterTimer = NodePath("EncounterTimer")
-encounterSoundTimer = NodePath("EncounterSoundTimer")
-
-[node name="EncounterTimer" parent="GameManager/Encounter" unique_id=893486501 instance=ExtResource("8_kek77")]
-script = ExtResource("9_4c57u")
-
-[node name="EncounterSoundTimer" parent="GameManager/Encounter" unique_id=1116754183 instance=ExtResource("10_dg77c")]
 
 [node name="OutsideBackground" parent="." unique_id=954898329 instance=ExtResource("1_h2yge")]
 offset_left = -3.0
@@ -47,13 +33,12 @@ offset_bottom = 1003.0
 [node name="Player" parent="." unique_id=466466734 instance=ExtResource("2_h2yge")]
 position = Vector2(214, 126)
 
+[node name="SanityTimer" parent="Player" unique_id=1490978268 instance=ExtResource("7_272bh")]
+autostart = true
+
 [node name="InsideBackground" parent="." unique_id=97440080 instance=ExtResource("4_1bvp3")]
 offset_left = 27.0
 offset_right = 527.0
-
-[node name="SanityTimer" parent="." unique_id=1490978268 instance=ExtResource("7_272bh")]
-wait_time = 30.0
-autostart = true
 
 [node name="Door" parent="." unique_id=1232092062 instance=ExtResource("10_4c57u")]
 position = Vector2(501, 416)
@@ -61,11 +46,7 @@ script = ExtResource("10_ycdy4")
 
 [node name="Item" parent="." unique_id=1101001868 groups=["item"] instance=ExtResource("12_w48qg")]
 
-[connection signal="timeout" from="GameManager/Encounter/EncounterTimer" to="GameManager/DialogueSys" method="OnEncounterTimerTimeout"]
-[connection signal="timeout" from="GameManager/Encounter/EncounterSoundTimer" to="GameManager/DialogueSys" method="OnEncounterSoundTimerTimeout"]
 [connection signal="area_entered" from="Player/Area2D" to="Player" method="OnAreaEntered"]
-[connection signal="timeout" from="SanityTimer" to="Player" method="OnSanityTimerTimeout"]
+[connection signal="timeout" from="Player/SanityTimer" to="Player" method="OnSanityTimerTimeout"]
 
 [editable path="Player"]
-[editable path="Door"]
-[editable path="Item"]

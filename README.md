@@ -55,3 +55,26 @@
 			- Ignore dialogue (?)
 			- SFX
 			- Next character.
+
+# EncounterSystem
+- spawn encounter
+	- choose encounter type
+	- create character according to encounter type
+		- dialogue
+		- sprite
+
+- handle interractions with door
+	- run encounterSystemTimer
+	- encounter spawns
+	- player interracts with door (e)
+	- dialogue 
+	- spawn order of pills
+	- player interracts with door again (q)
+		- if has pills (not psychotics in his inventory)
+			- if mimic or monster
+				- dead
+			- else
+				- remove encounter
+				- spawn new encounter
+
+- integrate sanity timer with player
