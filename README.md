@@ -35,3 +35,23 @@
 		- bizarre_order = rand(0, 1)
 
 - MAYBE add hallucinations as an indicator but idk if we'll have time :')
+
+# Picking characters in dialogue
+	- Select encounter
+	- Based on the encounter, draw from a pool of available characters
+		- Restriction: dont use the same character twice
+	- Once a charact is selected:
+		- When speaking: select dialogue with its id
+			- Create order request for the player
+				- spawn items, ect
+			- Once the player collects the items
+				- Deliver to door (interact)
+				- have a prompt to open the door
+					- Choise dialogue
+						- Ignore
+						- Open door
+			- Complete order and play complete order dialogue.
+		- If IGNORE:
+			- Ignore dialogue (?)
+			- SFX
+			- Next character.
