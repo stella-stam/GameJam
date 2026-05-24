@@ -1,14 +1,8 @@
 [gd_scene format=3 uid="uid://d2syatk0fq20k"]
 
-[ext_resource type="Script" uid="uid://ct4qbximpgffi" path="res://GameManager.cs" id="1_w48qg"]
 [ext_resource type="PackedScene" uid="uid://bek064rwewftr" path="res://CharacterSys/character_sys.tscn" id="2_4c57u"]
 [ext_resource type="PackedScene" uid="uid://c1fo2g8yx01c0" path="res://Player/player.tscn" id="2_h2yge"]
 [ext_resource type="PackedScene" uid="uid://btxytpjopv6x6" path="res://dialogue_sys.tscn" id="3_h2yge"]
-[ext_resource type="PackedScene" uid="uid://bq4lkswfm433n" path="res://Environment/inside_background.tscn" id="4_1bvp3"]
-[ext_resource type="Resource" uid="uid://cc76wfcmol4jt" path="res://resources/lady.tres" id="3_ycdy4"]
-[ext_resource type="PackedScene" uid="uid://bc5ngnv5oskmf" path="res://Player/sanity_timer.tscn" id="7_272bh"]
-[ext_resource type="PackedScene" uid="uid://cnduqyrk0qg2w" path="res://Encounter/encounter_timer.tscn" id="8_kek77"]
-[ext_resource type="Script" uid="uid://d3bbqmxaw8ywq" path="res://Encounter/EncounterTimer.cs" id="9_4c57u"]
 [ext_resource type="PackedScene" uid="uid://ddpa3ir16yux5" path="res://Environment/door.tscn" id="10_4c57u"]
 [ext_resource type="Script" uid="uid://b3xb6qid4qi4p" path="res://Environment/Door.cs" id="10_ycdy4"]
 [ext_resource type="PackedScene" uid="uid://nmagtld1a2ko" path="res://Item/item.tscn" id="12_w48qg"]
@@ -19,34 +13,11 @@ radius = 61.100327
 
 [node name="Main" type="Node2D" unique_id=559459927]
 
-[node name="GameManager" type="Node" parent="." unique_id=989165233 node_paths=PackedStringArray("dialogueSys", "player")]
-[node name="SanityTimer" parent="." unique_id=1490978268 instance=ExtResource("7_272bh")]
-wait_time = 30.0
-autostart = true
-
-[node name="GameManager" type="Node" parent="." unique_id=989165233 node_paths=PackedStringArray("dialogueSys", "encounterSys", "player")]
-script = ExtResource("1_w48qg")
-dialogueSys = NodePath("DialogueSys")
-player = NodePath("../Player")
-list = Array[Object]([ExtResource("3_ycdy4"), null])
+[node name="GameManager" type="Node" parent="." unique_id=989165233]
 
 [node name="CharacterSys" parent="GameManager" unique_id=449327692 instance=ExtResource("2_4c57u")]
 
 [node name="DialogueSys" parent="GameManager" unique_id=1990516895 instance=ExtResource("3_h2yge")]
-
-[node name="OutsideBackground" parent="." unique_id=954898329 instance=ExtResource("1_h2yge")]
-offset_left = -3.0
-offset_top = 3.0
-offset_right = 997.0
-offset_bottom = 1003.0
-[node name="Encounter" parent="GameManager" unique_id=531138521 node_paths=PackedStringArray("encounterTimer", "encounterSoundTimer") instance=ExtResource("11_ycdy4")]
-encounterTimer = NodePath("EncounterTimer")
-encounterSoundTimer = NodePath("EncounterSoundTimer")
-
-[node name="EncounterTimer" parent="GameManager/Encounter" unique_id=893486501 instance=ExtResource("8_kek77")]
-script = ExtResource("9_4c57u")
-
-[node name="EncounterSoundTimer" parent="GameManager/Encounter" unique_id=1116754183 instance=ExtResource("10_dg77c")]
 
 [node name="Scenery" parent="." unique_id=1815645819 instance=ExtResource("15_vivmo")]
 
@@ -69,9 +40,6 @@ script = ExtResource("10_ycdy4")
 [node name="CollisionShape2D" parent="Door/Area2D" parent_id_path=PackedInt32Array(1232092062, 456179357) index="0" unique_id=174505364]
 position = Vector2(-23.5, 4.5)
 
-[connection signal="area_entered" from="Player/Area2D" to="Player" method="OnAreaEntered"]
-[connection signal="area_exited" from="Player/Area2D" to="Player" method="OnAreaExited"]
-
 [node name="Item" parent="." unique_id=1101001868 groups=["item"] instance=ExtResource("12_w48qg")]
 position = Vector2(213, 192)
 
@@ -85,10 +53,8 @@ position = Vector2(532, 333)
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1918933996]
 position = Vector2(574, 322)
 
-[connection signal="timeout" from="SanityTimer" to="Player" method="OnSanityTimerTimeout"]
-[connection signal="timeout" from="GameManager/Encounter/EncounterTimer" to="GameManager/DialogueSys" method="OnEncounterTimerTimeout"]
-[connection signal="timeout" from="GameManager/Encounter/EncounterSoundTimer" to="GameManager/DialogueSys" method="OnEncounterSoundTimerTimeout"]
 [connection signal="area_entered" from="Player/Area2D" to="Player" method="OnAreaEntered"]
+[connection signal="area_exited" from="Player/Area2D" to="Player" method="OnAreaExited"]
 
 [editable path="Scenery"]
 [editable path="Door"]
