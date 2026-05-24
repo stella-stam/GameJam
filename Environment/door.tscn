@@ -1,88 +1,13 @@
 [gd_scene format=3 uid="uid://ddpa3ir16yux5"]
 
-[ext_resource type="PackedScene" path="res://Player/sanity_timer.tscn" id="1_14t7a"]
-[ext_resource type="Script" uid="uid://ct4qbximpgffi" path="res://GameManager.cs" id="2_k5fiy"]
-[ext_resource type="Resource" uid="uid://cc76wfcmol4jt" path="res://resources/lady.tres" id="3_51y2p"]
-[ext_resource type="PackedScene" uid="uid://btxytpjopv6x6" path="res://dialogue_sys.tscn" id="4_tlngp"]
-[ext_resource type="PackedScene" path="res://Encounter/encounter.tscn" id="5_o8vfa"]
-[ext_resource type="PackedScene" path="res://Encounter/encounter_timer.tscn" id="6_roll1"]
-[ext_resource type="Script" path="res://Encounter/EncounterTimer.cs" id="7_61qum"]
-[ext_resource type="PackedScene" path="res://Encounter/encounter_sound_timer.tscn" id="8_0h5yi"]
-[ext_resource type="PackedScene" uid="uid://cuo2x8xpii4qj" path="res://Environment/scenery.tscn" id="9_egal3"]
-[ext_resource type="Script" uid="uid://b3xb6qid4qi4p" path="res://Environment/Door.cs" id="10_yvooj"]
-[ext_resource type="PackedScene" uid="uid://nmagtld1a2ko" path="res://Item/item.tscn" id="11_djvyb"]
-[ext_resource type="PackedScene" uid="uid://c1fo2g8yx01c0" path="res://Player/player.tscn" id="12_ycops"]
-[ext_resource type="PackedScene" uid="uid://ddpa3ir16yux5" path="res://Environment/door.tscn" id="13_r8lmg"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hun61"]
+size = Vector2(31, 65)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ycdy4"]
-radius = 61.100327
+[node name="Door" type="Node2D" unique_id=1232092062]
+metadata/_edit_group_ = true
 
-[node name="Main" type="Node2D" unique_id=559459927]
+[node name="Area2D" type="Area2D" parent="." unique_id=456179357]
 
-[node name="SanityTimer" parent="." unique_id=1490978268 instance=ExtResource("1_14t7a")]
-wait_time = 30.0
-autostart = true
-
-[node name="GameManager" type="Node" parent="." unique_id=989165233 node_paths=PackedStringArray("dialogueSys", "encounterSys", "player")]
-script = ExtResource("2_k5fiy")
-dialogueSys = NodePath("DialogueSys")
-encounterSys = NodePath("Encounter")
-player = NodePath("../Player")
-list = Array[Object]([ExtResource("3_51y2p"), null])
-
-[node name="Node" type="Node" parent="GameManager" unique_id=2025598432]
-
-[node name="DialogueSys" parent="GameManager" unique_id=1990516895 instance=ExtResource("4_tlngp")]
-
-[node name="Encounter" parent="GameManager" unique_id=531138521 node_paths=PackedStringArray("encounterTimer", "encounterSoundTimer") instance=ExtResource("5_o8vfa")]
-encounterTimer = NodePath("EncounterTimer")
-encounterSoundTimer = NodePath("EncounterSoundTimer")
-
-[node name="EncounterTimer" parent="GameManager/Encounter" unique_id=893486501 instance=ExtResource("6_roll1")]
-script = ExtResource("7_61qum")
-
-[node name="EncounterSoundTimer" parent="GameManager/Encounter" unique_id=1116754183 instance=ExtResource("8_0h5yi")]
-
-[node name="Scenery" parent="." unique_id=1815645819 instance=ExtResource("9_egal3")]
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="Scenery" unique_id=1168055103]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Scenery/StaticBody2D2" unique_id=56272217]
-build_mode = 1
-polygon = PackedVector2Array(165, 495, 273, 496, 276, 223, 162, 223, 164, 263, 221, 263, 219, 452, 161, 451)
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Scenery" unique_id=1903920741]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Scenery/StaticBody2D" unique_id=12119220]
-build_mode = 1
-polygon = PackedVector2Array(158, 72, 925, 71, 926, 251, 972, 271, 974, 324, 975, 435, 926, 454, 926, 636, 154, 638)
-
-[node name="Door" parent="." unique_id=1232092062 instance=ExtResource("13_r8lmg")]
-position = Vector2(989, 354)
-script = ExtResource("10_yvooj")
-
-[node name="CollisionShape2D" parent="Door/Area2D" parent_id_path=PackedInt32Array(1232092062, 456179357) index="0" unique_id=174505364]
-position = Vector2(-23.5, 4.5)
-
-[node name="Item" parent="." unique_id=1101001868 groups=["item"] instance=ExtResource("11_djvyb")]
-position = Vector2(213, 192)
-
-[node name="CollisionShape2D" parent="Item/Area2D" parent_id_path=PackedInt32Array(1101001868, 959611658) index="0" unique_id=594933084]
-position = Vector2(48, 49)
-shape = SubResource("CircleShape2D_ycdy4")
-
-[node name="Player" parent="." unique_id=466466734 instance=ExtResource("12_ycops")]
-position = Vector2(532, 333)
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1918933996]
-position = Vector2(574, 322)
-
-[connection signal="timeout" from="SanityTimer" to="Player" method="OnSanityTimerTimeout"]
-[connection signal="timeout" from="GameManager/Encounter/EncounterTimer" to="GameManager/DialogueSys" method="OnEncounterTimerTimeout"]
-[connection signal="timeout" from="GameManager/Encounter/EncounterSoundTimer" to="GameManager/DialogueSys" method="OnEncounterSoundTimerTimeout"]
-[connection signal="area_entered" from="Player/Area2D" to="Player" method="OnAreaEntered"]
-
-[editable path="Scenery"]
-[editable path="Door"]
-[editable path="Item"]
-[editable path="Player"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=174505364]
+position = Vector2(-21.5, 0)
+shape = SubResource("RectangleShape2D_hun61")
