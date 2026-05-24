@@ -1,3 +1,5 @@
+using System;
+
 public class Dialogue
 {
     public readonly int uid;
@@ -5,6 +7,7 @@ public class Dialogue
     public readonly string text;
     private int nextNodeId = -1;
     public bool hideImages = false;
+    public Action callbackOnEnd;
 
     public Dialogue(int id, int ch, string text)
     {
@@ -12,11 +15,19 @@ public class Dialogue
         characterId = ch;
         this.text = text;
         nextNodeId = id + 1;
+
+
     }
 
     public virtual int GetNextNodeId()
     {
         return nextNodeId;
+    }
+
+    public Dialogue callback(Action act)
+    {
+        callbackOnEnd = act;
+        return this;
     }
 
     public virtual Dialogue next(int i)

@@ -4,26 +4,44 @@
 [ext_resource type="Script" uid="uid://lvscba23i2dh" path="res://CharacterSys/Gameplay.cs" id="1_efxa6"]
 [ext_resource type="PackedScene" uid="uid://bek064rwewftr" path="res://CharacterSys/character_sys.tscn" id="2_4c57u"]
 [ext_resource type="PackedScene" uid="uid://c1fo2g8yx01c0" path="res://Player/player.tscn" id="2_h2yge"]
+[ext_resource type="PackedScene" uid="uid://d3m6c4je48grl" path="res://enemy.tscn" id="2_ycdy4"]
+[ext_resource type="PackedScene" uid="uid://bwp6e737fq1mb" path="res://items/Pills.tscn" id="3_d13ii"]
 [ext_resource type="Resource" uid="uid://bq1a2ikm7mp2p" path="res://resources/grandma.tres" id="3_efxa6"]
 [ext_resource type="PackedScene" uid="uid://btxytpjopv6x6" path="res://dialogue_sys.tscn" id="3_h2yge"]
 [ext_resource type="Resource" uid="uid://cc76wfcmol4jt" path="res://resources/lady.tres" id="3_ycdy4"]
+[ext_resource type="PackedScene" uid="uid://cl7jkvwhugqs3" path="res://items/fill.tscn" id="4_1u8w0"]
 [ext_resource type="Resource" uid="uid://dmkjl8esvrbxa" path="res://resources/uncle.tres" id="4_dg77c"]
+[ext_resource type="PackedScene" uid="uid://dmvfmkerjiu5i" path="res://items/tablet.tscn" id="5_0odxb"]
 [ext_resource type="PackedScene" uid="uid://ddpa3ir16yux5" path="res://Environment/door.tscn" id="10_4c57u"]
 [ext_resource type="Script" uid="uid://b3xb6qid4qi4p" path="res://Environment/Door.cs" id="10_ycdy4"]
 [ext_resource type="PackedScene" uid="uid://nmagtld1a2ko" path="res://Item/item.tscn" id="12_w48qg"]
+[ext_resource type="Texture2D" uid="uid://clbitjaevb5bh" path="res://assets/Key 4 - Silver.png" id="13_82xsv"]
+[ext_resource type="Texture2D" uid="uid://c3ey25baekmoe" path="res://assets/Sprite-0002.png" id="15_getpj"]
 [ext_resource type="PackedScene" uid="uid://cuo2x8xpii4qj" path="res://Environment/scenery.tscn" id="15_vivmo"]
+[ext_resource type="Texture2D" uid="uid://qdusihymy8en" path="res://assets/Sprite-0003.png" id="16_ryguw"]
+[ext_resource type="Texture2D" uid="uid://bfekx3rl244xn" path="res://assets/Sprite-0004.png" id="17_d13ii"]
+[ext_resource type="Texture2D" uid="uid://buvvg5j1o84tr" path="res://assets/Sprite-0005.png" id="18_1u8w0"]
+[ext_resource type="Texture2D" uid="uid://b4rr1pqi0mtdc" path="res://assets/Sprite-0006.png" id="19_0odxb"]
+[ext_resource type="Texture2D" uid="uid://bt1872p6nv1xk" path="res://assets/Sprite-0007.png" id="20_lswn8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ycdy4"]
-radius = 61.100327
+radius = 92.88562
 
 [node name="Main" type="Node2D" unique_id=559459927]
 
-[node name="GameManager" type="Node" parent="." unique_id=989165233 node_paths=PackedStringArray("dialogueSys", "characterSys", "player", "gm")]
+[node name="GameManager" type="Node" parent="." unique_id=989165233 node_paths=PackedStringArray("dialogueSys", "characterSys", "player", "gm", "spawnPoints")]
 script = ExtResource("1_dg77c")
 dialogueSys = NodePath("DialogueSys")
 characterSys = NodePath("CharacterSys")
 player = NodePath("../Player")
 gm = NodePath("Gameplay")
+EnemyScene = ExtResource("2_ycdy4")
+items = Dictionary[int, PackedScene]({
+2: ExtResource("3_d13ii"),
+3: ExtResource("5_0odxb"),
+4: ExtResource("4_1u8w0")
+})
+spawnPoints = [NodePath("../SpawnPoints/SpawnPos"), NodePath("../SpawnPoints/SpawnPos2"), NodePath("../SpawnPoints/SpawnPos3"), NodePath("../SpawnPoints/SpawnPos4")]
 
 [node name="Gameplay" type="Node" parent="GameManager" unique_id=259714254]
 script = ExtResource("1_efxa6")
@@ -70,18 +88,69 @@ script = ExtResource("10_ycdy4")
 position = Vector2(-23.5, 4.5)
 
 [node name="KEYS" parent="." unique_id=1101001868 groups=["item"] instance=ExtResource("12_w48qg")]
-position = Vector2(213, 192)
+texture_filter = 1
+position = Vector2(223.00002, 236)
+scale = Vector2(0.87700903, 0.70172197)
 type = 1
 
 [node name="CollisionShape2D" parent="KEYS/Area2D" parent_id_path=PackedInt32Array(1101001868, 959611658) index="0" unique_id=594933084]
-position = Vector2(48, 49)
+position = Vector2(49.03028, 44.17705)
 shape = SubResource("CircleShape2D_ycdy4")
+
+[node name="Sprite2D" parent="KEYS/Area2D" parent_id_path=PackedInt32Array(1101001868, 959611658) index="1" unique_id=2130826367]
+texture = ExtResource("13_82xsv")
 
 [node name="Player" parent="." unique_id=466466734 instance=ExtResource("2_h2yge")]
 position = Vector2(532, 333)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1918933996]
 position = Vector2(574, 329)
+
+[node name="Sprite0002" type="Sprite2D" parent="." unique_id=378352024]
+position = Vector2(706, 84)
+texture = ExtResource("15_getpj")
+
+[node name="Sprite0003" type="Sprite2D" parent="." unique_id=1063592166]
+position = Vector2(411, 238)
+texture = ExtResource("16_ryguw")
+
+[node name="Sprite0003" type="Sprite2D" parent="Sprite0003" unique_id=1612878154]
+position = Vector2(188, 0)
+texture = ExtResource("16_ryguw")
+
+[node name="Sprite0002" type="Sprite2D" parent="Sprite0003" unique_id=1710410678]
+position = Vector2(45, 218)
+texture = ExtResource("15_getpj")
+
+[node name="Sprite0004" type="Sprite2D" parent="Sprite0003" unique_id=1027044608]
+position = Vector2(-213, -22)
+texture = ExtResource("17_d13ii")
+
+[node name="Sprite0005" type="Sprite2D" parent="Sprite0003" unique_id=705476208]
+position = Vector2(427, -139)
+texture = ExtResource("18_1u8w0")
+
+[node name="Sprite0006" type="Sprite2D" parent="Sprite0003" unique_id=97430499]
+position = Vector2(503, 19)
+texture = ExtResource("19_0odxb")
+
+[node name="Sprite0007" type="Sprite2D" parent="Sprite0003" unique_id=957867518]
+position = Vector2(314, 10)
+texture = ExtResource("20_lswn8")
+
+[node name="SpawnPoints" type="Node" parent="." unique_id=1358842712]
+
+[node name="SpawnPos" type="Node2D" parent="SpawnPoints" unique_id=1336280799]
+position = Vector2(393, 541)
+
+[node name="SpawnPos2" type="Node2D" parent="SpawnPoints" unique_id=426742933]
+position = Vector2(823, 161)
+
+[node name="SpawnPos3" type="Node2D" parent="SpawnPoints" unique_id=871078434]
+position = Vector2(439, 108)
+
+[node name="SpawnPos4" type="Node2D" parent="SpawnPoints" unique_id=907320120]
+position = Vector2(250, 396)
 
 [connection signal="area_entered" from="Player/Area2D" to="Player" method="OnAreaEntered"]
 [connection signal="area_exited" from="Player/Area2D" to="Player" method="OnAreaExited"]

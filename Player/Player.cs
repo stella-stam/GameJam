@@ -30,6 +30,8 @@ public partial class Player : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
+
+
 		handle_input_movement(delta);
 
 		handle_pick_up();

@@ -11,6 +11,8 @@ public partial class Character : Resource
     [Export]
     public Texture2D sprite;
     [Export]
+    public Texture2D sprite_alt;
+    [Export]
     public Godot.Vector2 spriteOffset;
     [Export]
     public Color dialogueTextColor;
@@ -18,6 +20,8 @@ public partial class Character : Resource
     public int dialogueStartId;
     [Export]
     public int dialogueCompleteID;
+    [Export]
+    public int ignoringKnockID;
     [Export]
     public bool isMonster = false;
 

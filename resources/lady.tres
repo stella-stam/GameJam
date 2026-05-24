@@ -2,12 +2,15 @@
 
 [ext_resource type="Script" uid="uid://8qt6hv8etxr5" path="res://dialogueSys/Character.cs" id="1_lghas"]
 [ext_resource type="Texture2D" uid="uid://e2kr26y4i2wu" path="res://assets/npc1.png" id="2_4unwu"]
+[ext_resource type="Texture2D" uid="uid://bjh8hu5pef6ik" path="res://assets/npc1_alt.png" id="3_6642y"]
 
 [resource]
 script = ExtResource("1_lghas")
 sprite = ExtResource("2_4unwu")
+sprite_alt = ExtResource("3_6642y")
 dialogueTextColor = Color(1, 1, 1, 1)
 dialogueStartId = 10
 dialogueCompleteID = 15
+ignoringKnockID = 2
 request = Array[int]([1])
 metadata/_custom_type_script = "uid://8qt6hv8etxr5"

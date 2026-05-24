@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://d3m6c4je48grl"]
+
+[ext_resource type="Texture2D" uid="uid://doh22dvirie50" path="res://assets/hands.png" id="1_4gyqm"]
+[ext_resource type="Script" uid="uid://cf3mq4tsw4gad" path="res://Environment/ChargingEnemy.cs" id="2_qi2p4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vivmo"]
+atlas = ExtResource("1_4gyqm")
+region = Rect2(160, 0, 80, 54)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2cqfq"]
+atlas = ExtResource("1_4gyqm")
+region = Rect2(80, 0, 80, 54)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yaehf"]
+atlas = ExtResource("1_4gyqm")
+region = Rect2(0, 0, 80, 54)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_074og"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vivmo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cqfq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yaehf")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[node name="Enemy" type="AnimatedSprite2D" unique_id=540043843]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_074og")
+animation = &"new_animation"
+frame_progress = 0.63183045
+flip_h = true
+script = ExtResource("2_qi2p4")

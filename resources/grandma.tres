@@ -2,8 +2,14 @@
 
 [ext_resource type="Script" uid="uid://8qt6hv8etxr5" path="res://dialogueSys/Character.cs" id="1_kgpin"]
 [ext_resource type="Texture2D" uid="uid://rdugbkdkiqy7" path="res://assets/npc2.png" id="2_vyo2m"]
+[ext_resource type="Texture2D" uid="uid://btcvkafc42f5p" path="res://assets/npc2_alt.png" id="3_vyo2m"]
 
 [resource]
 script = ExtResource("1_kgpin")
 sprite = ExtResource("2_vyo2m")
+sprite_alt = ExtResource("3_vyo2m")
+dialogueStartId = 30
+dialogueCompleteID = 40
+isMonster = true
+request = Array[int]([3, 4, 2])
 metadata/_custom_type_script = "uid://8qt6hv8etxr5"

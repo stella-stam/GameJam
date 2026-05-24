@@ -10,6 +10,8 @@ public partial class CharacterSys : Node2D
 	Character activeCharacter;
 	public Character ActiveCharacter => activeCharacter;
 
+	int charasProcessed = 0;
+
 	[Export]
 	Timer doorArrivalTimer;
 	public override void _Ready()
@@ -20,6 +22,16 @@ public partial class CharacterSys : Node2D
 	void OnDoorArrivalTimerTimeout()
 	{
 		doorArrivalTimer.SetPaused(true);
-		activeCharacter = characters[0];
+		activeCharacter = characters[charasProcessed];
+
+		if (charasProcessed == 4)
+		{
+			GameManager.Instance.win();
+		}
+	}
+
+	public void OnReqCompleted()
+	{
+		activeCharacter = characters[1];
 	}
 }

@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://cl7jkvwhugqs3"]
+
+[ext_resource type="Script" uid="uid://ckvmf6mud8fny" path="res://Item/Item.cs" id="1_rwbj3"]
+[ext_resource type="Texture2D" uid="uid://dj3vru860nouu" path="res://Item/filler_pills.png" id="2_rwbj3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ycdy4"]
+radius = 92.88562
+
+[node name="KEYS2" type="Node2D" unique_id=380595013 groups=["item"]]
+texture_filter = 1
+scale = Vector2(0.87700903, 0.70172197)
+script = ExtResource("1_rwbj3")
+type = 1
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1659292013]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=529020396]
+position = Vector2(49.03028, 44.17705)
+shape = SubResource("CircleShape2D_ycdy4")
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D" unique_id=1425161261]
+position = Vector2(47, 48)
+texture = ExtResource("2_rwbj3")

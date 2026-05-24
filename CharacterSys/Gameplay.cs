@@ -14,14 +14,45 @@ public partial class Gameplay : Node
 
     bool setReq = false;
 
+    float timer;
+    bool hasComplained = false;
+
+    bool playIntro = true;
+
+
+
     public override void _Ready()
     {
 
     }
 
+
     public override void _Process(double delta)
     {
+        if (ActiveCharacter != null)
+        {
+            if (playIntro)
+            {
+                sys.StartDialogue(4);
+                playIntro = false;
+            }
 
+            // if (setReq && !GameManager.Instance.dialogueSys.IsInDialogue)
+            //     timer += (float)delta;
+
+            // if (timer > 8 && !hasComplained)
+            // {
+            //     //character is complaining
+            //     sys.StartDialogue(ActiveCharacter.ignoringKnockID);
+            //     hasComplained = true;
+            // }
+
+            if (timer > 19)
+            {
+                OnDoorIgnore(true);
+                timer = 0;
+            }
+        }
     }
 
     public void OnDoorInteracted()
@@ -63,8 +94,14 @@ public partial class Gameplay : Node
             request.AddRange(ActiveCharacter.request);
             setReq = true;
             GD.Print("Set req: " + request[0]);
+
+            foreach (var item in request)
+            {
+                GameManager.Instance.SpawnRandom(item);
+            }
         }
         //spawn items
+
     }
     public void OnDoorAwnser()
     {
@@ -105,24 +142,34 @@ public partial class Gameplay : Node
     {
         setReq = false;
         request.Clear();
+        hasComplained = false;
         hasAcceptedDoor = false;
-
+        GD.Print("Completed request");
+        GameManager.Instance.characterSys.OnReqCompleted();
     }
 
-    public void OnDoorIgnore()
+    public void OnDoorIgnore(bool fin)
     {
-        //walk away after delay. delay not yet
-        sys.StartDialogue(22);
+        //walk away after delay. delay not yet set
 
-        GD.Print("ignored door");
-
-        if (ActiveCharacter.isMonster)
+        if (fin)
         {
-            //play walk away sfx
+            sys.StartDialogue(22);
+
+            if (ActiveCharacter.isMonster)
+            {
+                //play walk away sfx
+                //yay +1 points
+                onReqCompleted();
+            }
+            else
+            {
+                // normal customer left
+            }
         }
         else
         {
-
+            sys.StartDialogue(2);
         }
     }
 }

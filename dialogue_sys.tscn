@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bwtuxyssly70x" path="res://dialogueSys/DialogueSystem.cs" id="1_0gu6c"]
 [ext_resource type="Theme" uid="uid://biue38dh24cto" path="res://UIThemes/new_theme.tres" id="3_0g0qf"]
+[ext_resource type="Script" uid="uid://c6denmdw10kon" path="res://dialogueSys/SlowTextLabel.cs" id="3_0nlj6"]
 [ext_resource type="Texture2D" uid="uid://e2kr26y4i2wu" path="res://assets/npc1.png" id="3_xfjdv"]
 [ext_resource type="Shader" uid="uid://cmi2mkchshh5c" path="res://dialogue_sys.gdshader" id="4_xfjdv"]
 
@@ -19,14 +20,16 @@ shader_parameter/fog_color = Color(0.61222285, 0, 0, 1)
 shader_parameter/resolution_downsampling = 2.0
 shader_parameter/bit_depth = 6.0
 
-[node name="DialogueSys" type="Node" unique_id=1990516895 node_paths=PackedStringArray("textboxUI", "textbox", "OptionsUI", "Opt1Button", "Opt2Button", "images")]
+[node name="DialogueSys" type="Node" unique_id=1990516895 node_paths=PackedStringArray("textboxUI", "textbox", "tb", "OptionsUI", "Opt1Button", "Opt2Button", "images", "charImg")]
 script = ExtResource("1_0gu6c")
 textboxUI = NodePath("CanvasLayer/Control")
 textbox = NodePath("CanvasLayer/Control/MarginContainer/Panel/MarginContainer/dialogueText")
+tb = NodePath("CanvasLayer/Control/MarginContainer/Panel/MarginContainer/RichTextLabel")
 OptionsUI = NodePath("CanvasLayer/Buttons")
 Opt1Button = NodePath("CanvasLayer/Buttons/MarginContainer/VBoxContainer/Button")
 Opt2Button = NodePath("CanvasLayer/Buttons/MarginContainer/VBoxContainer/Button2")
 images = NodePath("CanvasLayer/Control2")
+charImg = NodePath("CanvasLayer/Control2/Character")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=257565374]
 
@@ -76,9 +79,10 @@ theme_override_constants/margin_right = 20
 [node name="Panel" type="ColorRect" parent="CanvasLayer/Control/MarginContainer" unique_id=192784906]
 layout_mode = 2
 theme = SubResource("Theme_h2yge")
-color = Color(0, 0, 0, 1)
+color = Color(0, 0, 0, 0.629)
 
 [node name="speakerName" type="Label" parent="CanvasLayer/Control/MarginContainer/Panel" unique_id=22697151]
+visible = false
 clip_contents = true
 layout_mode = 0
 offset_left = -2.0
@@ -104,6 +108,7 @@ theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
 [node name="dialogueText" type="Label" parent="CanvasLayer/Control/MarginContainer/Panel/MarginContainer" unique_id=1281721897]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 text = "the quick red fox jumps over the lazy brown dog,the quick red fox jumps over the lazy brown dog,the quick red fox jumps over the lazy brown dogthe quick red fox jumps over the lazy brown dogthe quick red fox jumps over the lazy brown dogthe quick red fox jumps over the lazy brown dogthe quick red fox jumps over the lazy brown dogthe quick red fox jumps over the lazy brown dog"
@@ -111,8 +116,11 @@ label_settings = SubResource("LabelSettings_lquwl")
 autowrap_mode = 2
 clip_text = true
 
-[node name="HBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer/Panel/MarginContainer" unique_id=1137098841]
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control/MarginContainer/Panel/MarginContainer" unique_id=435089395]
 layout_mode = 2
+theme = ExtResource("3_0g0qf")
+text = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+script = ExtResource("3_0nlj6")
 
 [node name="shader" type="ColorRect" parent="CanvasLayer" unique_id=1296951393]
 material = SubResource("ShaderMaterial_0nlj6")
