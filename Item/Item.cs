@@ -1,10 +1,11 @@
 using Godot;
 using System;
 
-public partial class Item : Node2D
+[GlobalClass]
+public partial class Item : Node2D, IInteractable
 {
 	[Export]
-	public string ID { get; set;} = "Filler Item";
+	public string ID { get; set; } = "Filler Item";
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -14,4 +15,10 @@ public partial class Item : Node2D
 	public override void _Process(double delta)
 	{
 	}
+
+	public void Interact()
+	{
+
+	}
+
 }

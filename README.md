@@ -15,7 +15,7 @@
 
 ## Encounters
 - roll die for x seconds to wait for (time_wait_encounter)
-- roll 4die DEPENDENT on sanity value
+- roll die DEPENDENT on sanity value
 - time_wait_encounter ends, trigger encounter according to 4die value: 
     - 0: human u think is human
 		- evil_sfx_trigger = false

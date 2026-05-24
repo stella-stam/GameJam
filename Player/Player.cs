@@ -11,7 +11,7 @@ public partial class Player : CharacterBody2D
 
 	bool isNearDoor = false;
 
-	int speed { get; set;} = 400;
+	int speed { get; set; } = 400;
 
 	Vector2 screenSize;
 
@@ -71,8 +71,9 @@ public partial class Player : CharacterBody2D
 
 	private void handle_pick_up()
 	{
-		if (Input.IsActionPressed("pick_up")) {
-			if (pickupableItem != null) 
+		if (Input.IsActionPressed("pick_up"))
+		{
+			if (pickupableItem != null)
 			{
 				inventory = pickupableItem;
 				pickupableItem = null;
@@ -91,9 +92,11 @@ public partial class Player : CharacterBody2D
 
 	private void handle_use()
 	{
-		if (Input.IsActionPressed("use") && inventory != null) {
+		if (Input.IsActionPressed("use") && inventory != null)
+		{
 			GD.Print("use triggered");
-			if (inventory.ID == "antipsychotics") {
+			if (inventory.ID == "antipsychotics")
+			{
 				sanity = Math.Clamp(sanity + 0.4, 0.0, 1.0);
 
 				GD.Print("Sanity: ", sanity);
@@ -103,7 +106,7 @@ public partial class Player : CharacterBody2D
 		}
 	}
 
-	private void OnSanityTimerTimeout() 
+	private void OnSanityTimerTimeout()
 	{
 		sanity = Math.Clamp(sanity - rng.NextSingle() * 0.1, 0.0, 1.0);
 
@@ -111,18 +114,20 @@ public partial class Player : CharacterBody2D
 	}
 
 	private void OnAreaEntered(Area2D area)
-	{		
-	    var parent = area.GetParent();
+	{
+		var parent = area.GetParent();
 
-	    if (parent.IsInGroup("items"))
-	    {
-	        pickupableItem = (Item)parent;
-	        GD.Print("Near item ID: ", pickupableItem.ID); 
-	    }
-	    else if (parent.IsInGroup("door"))
-	    {
-	        isNearDoor = true;
-	        GD.Print("Is near door");
-	    }
+		GD.Print("Near interactable: ", parent.Name);
+
+		if (parent is Item item)
+		{
+			pickupableItem = item;
+			GD.Print("Near item ID: ", pickupableItem.ID);
+		}
+
+		if (parent is IInteractable interactableParent)
+		{
+
+		}
 	}
 }

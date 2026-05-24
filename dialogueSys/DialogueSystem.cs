@@ -65,6 +65,12 @@ public partial class DialogueSystem : Node
         Add(new Dialogue(11, 0, "no bitches"));
         Add(new Dialogue(12, 0, "and probably no balls either"));
         Add(new Dialogue(13, 0, "NAH!").end());
+
+        //monster 1 encounter dialogue
+        Add(new Dialogue(10, 0, "no hoes"));
+        Add(new Dialogue(11, 0, "no bitches"));
+        Add(new Dialogue(12, 0, "and probably no balls either"));
+        Add(new Dialogue(13, 0, "NAH!").end());
     }
 
     private void ProgressDialogue()

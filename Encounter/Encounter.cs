@@ -3,20 +3,22 @@ using System;
 
 public partial class Encounter : Node2D
 {
-	enum EncounterType
+	public enum EncounterType
 	{
-		Human,			 // 0: Human you think is human
+		Human,           // 0: Human you think is human
 		Hallucination,   // 1: Human you think is monster
-		Monster,		 // 2: Monster 
-		Mimic 			 // 3: Monster disguised as human
+		Monster,         // 2: Monster 
+		Mimic            // 3: Monster disguised as human
 	}
 
 	Random rng = new Random();
 
 	EncounterType encounter;
+	public EncounterType EncounterTypeOngoing => encounter;
 
+	[Export]
 	Timer encounterTimer;
-
+	[Export]
 	Timer encounterSoundTimer;
 
 	double playerSanity;
@@ -26,15 +28,13 @@ public partial class Encounter : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		encounterTimer = GetNode<EncounterTimer>("../EncounterTimer");
-
 		// Wait for 20-60 seconds for first encounter
 		encounterTimer.WaitTime = rng.Next(2, 6);
 
 		// Wait a bit less to start encounter SFX (if necessary)
 		if (encounter != EncounterType.Human)
 		{
-			encounterSoundTimer.WaitTime =  encounterTimer.WaitTime * rng.Next();
+			encounterSoundTimer.WaitTime = encounterTimer.WaitTime * rng.Next();
 		}
 
 		selectEncounter();
@@ -43,17 +43,17 @@ public partial class Encounter : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		playerSanity = GetNode<Player>("../Player").sanity;
+		playerSanity = GameManager.Instance.player.sanity;
 	}
 
 	private void OnEncounterTimerTimeout()
-	{	
+	{
 		isEncounterAtDoor = true;
 	}
 
 	private void OnEncounterSoundTimerTimeout()
 	{
-		
+
 	}
 
 	private void selectEncounter()
@@ -64,19 +64,23 @@ public partial class Encounter : Node2D
 
 		double randomNumber = rng.Next();
 
-		if (randomNumber < probabilityOfHallucination) {
+		if (randomNumber < probabilityOfHallucination)
+		{
 			encounter = (EncounterType)1;
 		}
 
-		else if (randomNumber < probabilityOfHallucination + probabilityOfOthers) {
+		else if (randomNumber < probabilityOfHallucination + probabilityOfOthers)
+		{
 			encounter = (EncounterType)0;
 		}
 
-		else if (randomNumber < probabilityOfHallucination + 2 * probabilityOfOthers)  {
+		else if (randomNumber < probabilityOfHallucination + 2 * probabilityOfOthers)
+		{
 			encounter = (EncounterType)2;
 		}
 
-		else  {
+		else
+		{
 			encounter = (EncounterType)3;
 		}
 	}
