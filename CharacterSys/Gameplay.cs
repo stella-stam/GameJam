@@ -32,7 +32,7 @@ public partial class Gameplay : Node
             return;
         }
 
-        if (!hasAcceptedDoor)
+        if (!hasAcceptedDoor && !setReq)
         {
             //prompt player to awnser door
             sys.StartDialogue(0);
@@ -40,10 +40,11 @@ public partial class Gameplay : Node
         }
 
 
-        if (plr.heldItem != Item.ItemType.NONE && setReq)
+        if (setReq)
         {
+            GD.Print("Held:" + plr.heldItem);
             //open door prompt
-            sys.StartDialogue(0);
+            sys.StartDialogue(25);
             GD.Print("Open door prompt");
             return;
         }
@@ -53,6 +54,10 @@ public partial class Gameplay : Node
         sys.StartDialogue(10);
 
         GD.Print("repeat request");
+        SetRequest();
+    }
+    public void SetRequest()
+    {
         if (!setReq)
         {
             request.AddRange(ActiveCharacter.request);
@@ -60,15 +65,14 @@ public partial class Gameplay : Node
             GD.Print("Set req: " + request[0]);
         }
         //spawn items
-
     }
-
     public void OnDoorAwnser()
     {
         //play req dialogue
         hasAcceptedDoor = true;
         sys.StartDialogue(ActiveCharacter.dialogueStartId);
         GD.Print("Awnsered door");
+        SetRequest();
     }
 
     public void OnDoorOpen()
@@ -102,6 +106,7 @@ public partial class Gameplay : Node
         setReq = false;
         request.Clear();
         hasAcceptedDoor = false;
+
     }
 
     public void OnDoorIgnore()

@@ -72,6 +72,7 @@ public partial class Player : CharacterBody2D
 		{
 			if (pickupableItem != null)
 			{
+				GD.Print("Picked up: " + pickupableItem.type);
 				heldItem = pickupableItem.type;
 				pickupableItem.QueueFree();
 				pickupableItem = null;
