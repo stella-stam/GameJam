@@ -6,7 +6,7 @@ public partial class GameManager : Node
     [Export]
     public DialogueSystem dialogueSys;
     [Export]
-    public Encounter encounterSys;
+    public CharacterSys characterSys;
     [Export]
     public Player player;
 

@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://le5u85pcvjsd"]
-
-[ext_resource type="Script" path="res://Encounter/EncounterSoundTimer.cs" id="1_tm5p8"]
-
-[node name="EncounterSoundTimer" type="Timer" unique_id=1116754183]
-script = null

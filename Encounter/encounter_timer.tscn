@@ -1,5 +1,0 @@
-[gd_scene format=3 uid="uid://cnduqyrk0qg2w"]
-
-[node name="EncounterTimer" type="Timer" unique_id=893486501]
-one_shot = true
-autostart = true

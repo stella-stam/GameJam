@@ -1,13 +1,14 @@
 using Godot;
 using System;
 
-public partial class Encounter : Node2D
+public partial class CharacterSys : Node2D
 {
-	public bool isEncounterAtDoor = false;
-
+	[Export]
+	Timer doorArrivalTimer;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		doorArrivalTimer.Start();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -15,12 +16,9 @@ public partial class Encounter : Node2D
 	{
 	}
 
-	private void OnEncounterTimerTimeout()
+	void OnDoorArrivalTimerTimeout()
 	{
-		isEncounterAtDoor = true;
-	}
-
-	private void OnEncounterSoundTimerTimeout()
-	{
+		doorArrivalTimer.SetPaused(true);
+		GD.Print("knock knock");
 	}
 }
