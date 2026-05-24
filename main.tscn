@@ -44,5 +44,6 @@ script = ExtResource("10_ycdy4")
 [node name="Item" parent="." unique_id=1101001868 groups=["item"] instance=ExtResource("12_w48qg")]
 
 [connection signal="area_entered" from="Player/Area2D" to="Player" method="OnAreaEntered"]
+[connection signal="area_exited" from="Player/Area2D" to="Player" method="OnAreaExited"]
 
 [editable path="Player"]

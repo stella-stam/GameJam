@@ -78,12 +78,6 @@ public partial class Player : CharacterBody2D
 
 				GD.Print("Inventory contains: ", inventory.ID);
 			}
-
-			else if (isNearDoor)
-			{
-				GD.Print("opening door");
-				// TODO: trigger dialogue according to encounter type
-			}
 		}
 	}
 
@@ -112,6 +106,19 @@ public partial class Player : CharacterBody2D
 		if (parent is IInteractable interactableParent)
 		{
 
+		}
+	}
+
+	private void OnAreaExited(Area2D area)
+	{
+		var parent = area.GetParent();
+
+		GD.Print("Left near interactable: ", parent.Name);
+
+		if (parent is Item item)
+		{
+			pickupableItem = null;
+			GD.Print("Near item ID: ", pickupableItem);
 		}
 	}
 }
