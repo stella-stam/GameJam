@@ -23,6 +23,8 @@ dialogueSys = NodePath("DialogueSys")
 encounterSys = NodePath("Encounter")
 player = NodePath("../Player")
 
+[node name="Node" type="Node" parent="GameManager" unique_id=2025598432]
+
 [node name="DialogueSys" parent="GameManager" unique_id=1990516895 instance=ExtResource("3_h2yge")]
 
 [node name="Encounter" parent="GameManager" unique_id=531138521 node_paths=PackedStringArray("encounterTimer", "encounterSoundTimer") instance=ExtResource("11_ycdy4")]

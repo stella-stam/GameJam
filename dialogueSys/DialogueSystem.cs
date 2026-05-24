@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,20 +14,41 @@ public partial class DialogueSystem : Node
     public Character MAIN_CHARA;
     public Character TEST_CHARA;
 
-    public Dictionary<int, Dialogue> allGameDialogue = new();
-
-    public bool isOnChoiceNode = false;
+    public System.Collections.Generic.Dictionary<int, Dialogue> allGameDialogue = new();
 
     [Export]
     CanvasLayer textboxUI;
     [Export]
     Label textbox;
+    [Export]
+    Control OptionsUI;
+    [Export]
+    Button Opt1Button;
+    [Export]
+    Button Opt2Button;
 
-    public override void _Ready()
+    public override void _EnterTree()
     {
         textboxUI.Visible = false;
         DefineAllDialogue();
+        Opt1Button.Pressed += () => OnButtPressed(1);
+        Opt2Button.Pressed += () => OnButtPressed(2);
     }
+
+
+    private void OnButtPressed(int v)
+    {
+        var node = allGameDialogue[currentNodeId] as ChoiseDialogue;
+        if (v == 1)
+        {
+            SetCurrentNode(node.option1.nextNodeId);
+        }
+        else
+        {
+            SetCurrentNode(node.option2.nextNodeId);
+        }
+    }
+
 
     public override void _Process(double delta)
     {
@@ -42,7 +64,7 @@ public partial class DialogueSystem : Node
 
         if (Input.IsKeyPressed(Key.P))
         {
-            StartDialogue(10);
+            StartDialogue(30);
         }
     }
 
@@ -54,7 +76,12 @@ public partial class DialogueSystem : Node
 
     private void DefineAllDialogue()
     {
+
         //REGISTER ALL GAME DIALOGUE HERE. BECAUSE IM LAZY.
+        Add(new ChoiseDialogue(30, 0, "What do you want?")
+        .Option1(new ChoiseDialogue.Option("I want 1", 0, () => { }))
+         .Option2(new ChoiseDialogue.Option("I want 2", 10, () => { }))
+        );
         Add(new Dialogue(0, 0, "This is a sample dialogue"));
         Add(new Dialogue(1, 0, "and so"));
         Add(new Dialogue(2, 0, "life continues as usual"));
@@ -66,11 +93,6 @@ public partial class DialogueSystem : Node
         Add(new Dialogue(12, 0, "and probably no balls either"));
         Add(new Dialogue(13, 0, "NAH!").end());
 
-        //monster 1 encounter dialogue
-        Add(new Dialogue(10, 0, "no hoes"));
-        Add(new Dialogue(11, 0, "no bitches"));
-        Add(new Dialogue(12, 0, "and probably no balls either"));
-        Add(new Dialogue(13, 0, "NAH!").end());
     }
 
     private void ProgressDialogue()
@@ -88,7 +110,6 @@ public partial class DialogueSystem : Node
             if (node is ChoiseDialogue choise)
             {
                 //cant progress until the player makes a choise.
-                isOnChoiceNode = true;
                 return;
             }
             else
@@ -96,8 +117,6 @@ public partial class DialogueSystem : Node
                 //auto progress to the next node pointed to by node.nextid
                 int nextNodeId = node.GetNextNodeId();
                 SetCurrentNode(nextNodeId);
-
-                isOnChoiceNode = false;
             }
         }
         else
@@ -118,10 +137,22 @@ public partial class DialogueSystem : Node
         }
         else
         {
+            var node = allGameDialogue[currentNodeId];
             //show dialogue scene
             GD.Print("progressed dialogue: id" + currentNodeId + ", \"" + allGameDialogue[currentNodeId].text + "\"");
             textbox.Text = allGameDialogue[currentNodeId].text;
             textboxUI.Visible = true;
+
+            if (node is ChoiseDialogue dial)
+            {
+                OptionsUI.Visible = true;
+                Opt1Button.Text = dial.option1.optionText;
+                Opt2Button.Text = dial.option2.optionText;
+            }
+            else
+            {
+                OptionsUI.Visible = false;
+            }
         }
         GD.Print("set: " + newval);
     }
@@ -130,4 +161,7 @@ public partial class DialogueSystem : Node
     {
         allGameDialogue[node.uid] = node;
     }
+
+
+
 }

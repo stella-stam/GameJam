@@ -10,6 +10,7 @@ public partial class GameManager : Node
     [Export]
     public Player player;
 
+
     public override void _Ready()
     {
         Instance = this;
