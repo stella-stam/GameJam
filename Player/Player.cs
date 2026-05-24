@@ -83,9 +83,9 @@ public partial class Player : CharacterBody2D
 
 	private void handle_use()
 	{
-		if (Input.IsActionPressed("use") && inventory != null)
+		if (Input.IsActionPressed("use") && inventory != null && isNearDoor)
 		{
-			GD.Print("use triggered");
+			GD.Print("used item: ", inventory.ID);
 
 			inventory = null;
 		}
@@ -103,9 +103,10 @@ public partial class Player : CharacterBody2D
 			GD.Print("Near item ID: ", pickupableItem.ID);
 		}
 
-		if (parent is IInteractable interactableParent)
+		else if (parent is Door)
 		{
-
+			isNearDoor = true;
+			GD.Print("is near door");
 		}
 	}
 
@@ -119,6 +120,12 @@ public partial class Player : CharacterBody2D
 		{
 			pickupableItem = null;
 			GD.Print("Near item ID: ", pickupableItem);
+		}
+
+		else if (parent is Door door)
+		{
+			isNearDoor = false;
+			GD.Print("is not near door");
 		}
 	}
 }
