@@ -4,6 +4,7 @@ public class Dialogue
     public readonly int characterId;
     public readonly string text;
     private int nextNodeId = -1;
+    public bool hideImages = false;
 
     public Dialogue(int id, int ch, string text)
     {
@@ -27,6 +28,12 @@ public class Dialogue
     public virtual Dialogue end()
     {
         nextNodeId = -1;
+        return this;
+    }
+
+    public virtual Dialogue noimg()
+    {
+        hideImages = true;
         return this;
     }
 

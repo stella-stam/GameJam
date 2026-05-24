@@ -4,18 +4,18 @@ using System;
 [GlobalClass]
 public partial class Item : Node2D, IInteractable
 {
+	public enum ItemType
+	{
+		NONE,
+		KEYS,
+		PILL_ASPIRIN,
+		PILL_IBU_RED,
+		PILL_SANITY
+
+	}
+
 	[Export]
-	public string ID { get; set; } = "Filler Item";
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.a
-	public override void _Process(double delta)
-	{
-	}
-
+	public ItemType type;
 	public void Interact()
 	{
 

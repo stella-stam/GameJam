@@ -5,4 +5,9 @@
 
 [resource]
 script = ExtResource("1_lghas")
+sprite = ExtResource("2_4unwu")
+dialogueTextColor = Color(1, 1, 1, 1)
+dialogueStartId = 10
+dialogueCompleteID = 15
+request = Array[int]([1])
 metadata/_custom_type_script = "uid://8qt6hv8etxr5"

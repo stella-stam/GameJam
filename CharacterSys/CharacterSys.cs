@@ -1,24 +1,25 @@
 using Godot;
+using Godot.Collections;
 using System;
 
 public partial class CharacterSys : Node2D
 {
 	[Export]
+	public Array<Character> characters;
+
+	Character activeCharacter;
+	public Character ActiveCharacter => activeCharacter;
+
+	[Export]
 	Timer doorArrivalTimer;
-	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		doorArrivalTimer.Start();
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
-
 	void OnDoorArrivalTimerTimeout()
 	{
 		doorArrivalTimer.SetPaused(true);
-		GD.Print("knock knock");
+		activeCharacter = characters[0];
 	}
 }

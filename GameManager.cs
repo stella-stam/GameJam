@@ -12,9 +12,8 @@ public partial class GameManager : Node
     public CharacterSys characterSys;
     [Export]
     public Player player;
-
     [Export]
-    public Array<Character> list;
+    public Gameplay gm;
 
     public override void _Ready()
     {

@@ -17,7 +17,7 @@ public partial class DialogueSystem : Node
     public System.Collections.Generic.Dictionary<int, Dialogue> allGameDialogue = new();
 
     [Export]
-    CanvasLayer textboxUI;
+    Control textboxUI;
     [Export]
     Label textbox;
     [Export]
@@ -27,9 +27,14 @@ public partial class DialogueSystem : Node
     [Export]
     Button Opt2Button;
 
+    [Export]
+    Control images;
+
     public override void _EnterTree()
     {
         textboxUI.Visible = false;
+        OptionsUI.Visible = false;
+        images.Visible = false;
         DefineAllDialogue();
         Opt1Button.Pressed += () => OnButtPressed(1);
         Opt2Button.Pressed += () => OnButtPressed(2);
@@ -38,14 +43,17 @@ public partial class DialogueSystem : Node
 
     private void OnButtPressed(int v)
     {
+        GD.Print("Butt was pressed");
         var node = allGameDialogue[currentNodeId] as ChoiseDialogue;
         if (v == 1)
         {
             SetCurrentNode(node.option1.nextNodeId);
+            node.option1.callback?.Invoke();
         }
         else
         {
             SetCurrentNode(node.option2.nextNodeId);
+            node.option2.callback?.Invoke();
         }
     }
 
@@ -55,16 +63,6 @@ public partial class DialogueSystem : Node
         if (Input.IsActionJustPressed("ui_accept"))
         {
             ProgressDialogue();
-        }
-
-        if (Input.IsKeyPressed(Key.O))
-        {
-            StartDialogue(0);
-        }
-
-        if (Input.IsKeyPressed(Key.P))
-        {
-            StartDialogue(30);
         }
     }
 
@@ -76,22 +74,36 @@ public partial class DialogueSystem : Node
 
     private void DefineAllDialogue()
     {
-
         //REGISTER ALL GAME DIALOGUE HERE. BECAUSE IM LAZY.
-        Add(new ChoiseDialogue(30, 0, "What do you want?")
-        .Option1(new ChoiseDialogue.Option("I want 1", 0, () => { }))
-         .Option2(new ChoiseDialogue.Option("I want 2", 10, () => { }))
+        Add(new ChoiseDialogue(0, 0, "Reply?")
+            .Option1(new ChoiseDialogue.Option("Yes", -1, () => { GameManager.Instance.gm.OnDoorAwnser(); }))
+            .Option2(new ChoiseDialogue.Option("No", -1, () => { GameManager.Instance.gm.OnDoorIgnore(); }))
+            .noimg()
         );
-        Add(new Dialogue(0, 0, "This is a sample dialogue"));
-        Add(new Dialogue(1, 0, "and so"));
-        Add(new Dialogue(2, 0, "life continues as usual"));
-        Add(new Dialogue(3, 0, "yknow"));
-        Add(new Dialogue(4, 0, "whatever!").next(0));
+        Add(new Dialogue(2, 0, "What is taking you so long?").noimg());
+        Add(new Dialogue(3, 0, "Come on Adrian").noimg().end());
 
-        Add(new Dialogue(10, 0, "no hoes"));
-        Add(new Dialogue(11, 0, "no bitches"));
-        Add(new Dialogue(12, 0, "and probably no balls either"));
-        Add(new Dialogue(13, 0, "NAH!").end());
+        Add(new ChoiseDialogue(25, 0, "Open the door?")
+            .Option1(new ChoiseDialogue.Option("Yes", -1, () => { GameManager.Instance.gm.OnDoorOpen(); }))
+            .Option2(new ChoiseDialogue.Option("No", -1, () => { GameManager.Instance.gm.OnDoorIgnore(); }))
+            .noimg()
+        );
+
+        Add(new Dialogue(10, 0, "Hey, finally."));
+        Add(new Dialogue(11, 0, "I forgot my home keys during my last shift, go get em wont you?"));
+        Add(new Dialogue(12, 0, "They are on the main desk, next to your meds. Your uncle is on the next shift, just so you know."));
+        Add(new Dialogue(13, 0, "Well? What are you waiting for?").end());
+
+        Add(new Dialogue(15, 0, "There, thanks."));
+        Add(new Dialogue(16, 0, "Did you take your pills?"));
+        Add(new Dialogue(17, 0, "Just make sure to keep yourself awake, there are plenty of people coming and going even tonight."));
+        Add(new Dialogue(18, 0, "..ill get going. Dont get into a fight again, we just had the door repaired. You arent getting second chances"));
+        //change portrait here to illusion one. sfx?
+        Add(new Dialogue(19, 0, "ill in the head or not.").end());
+
+
+
+        Add(new Dialogue(22, 0, "The stranger walks away.").noimg().end());
 
     }
 
@@ -134,6 +146,8 @@ public partial class DialogueSystem : Node
             //hide dialogue scene
             GD.Print("Dissabled dialogue!");
             textboxUI.Visible = false;
+            OptionsUI.Visible = false;
+            images.Visible = false;
         }
         else
         {
@@ -142,6 +156,7 @@ public partial class DialogueSystem : Node
             GD.Print("progressed dialogue: id" + currentNodeId + ", \"" + allGameDialogue[currentNodeId].text + "\"");
             textbox.Text = allGameDialogue[currentNodeId].text;
             textboxUI.Visible = true;
+            images.Visible = !node.hideImages;
 
             if (node is ChoiseDialogue dial)
             {

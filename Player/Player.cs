@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.ComponentModel;
 
 public partial class Player : CharacterBody2D
 {
@@ -7,7 +8,7 @@ public partial class Player : CharacterBody2D
 
 	Item pickupableItem;
 
-	Item inventory;
+	public Item.ItemType heldItem;
 
 	bool isNearDoor = false;
 
@@ -24,6 +25,7 @@ public partial class Player : CharacterBody2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		handle_use();
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -31,8 +33,6 @@ public partial class Player : CharacterBody2D
 		handle_input_movement(delta);
 
 		handle_pick_up();
-
-		handle_use();
 	}
 
 	private void handle_input_movement(double delta)
@@ -72,22 +72,18 @@ public partial class Player : CharacterBody2D
 		{
 			if (pickupableItem != null)
 			{
-				inventory = pickupableItem;
+				heldItem = pickupableItem.type;
+				pickupableItem.QueueFree();
 				pickupableItem = null;
-				inventory.QueueFree();
-
-				GD.Print("Inventory contains: ", inventory.ID);
 			}
 		}
 	}
 
 	private void handle_use()
 	{
-		if (Input.IsActionPressed("use") && inventory != null && isNearDoor)
+		if (Input.IsActionJustPressed("use") && isNearDoor)
 		{
-			GD.Print("used item: ", inventory.ID);
-
-			inventory = null;
+			GameManager.Instance.gm.OnDoorInteracted();
 		}
 	}
 
@@ -100,13 +96,11 @@ public partial class Player : CharacterBody2D
 		if (parent is Item item)
 		{
 			pickupableItem = item;
-			GD.Print("Near item ID: ", pickupableItem.ID);
 		}
 
 		else if (parent is Door)
 		{
 			isNearDoor = true;
-			GD.Print("is near door");
 		}
 	}
 
@@ -114,18 +108,14 @@ public partial class Player : CharacterBody2D
 	{
 		var parent = area.GetParent();
 
-		GD.Print("Left near interactable: ", parent.Name);
-
 		if (parent is Item item)
 		{
 			pickupableItem = null;
-			GD.Print("Near item ID: ", pickupableItem);
 		}
 
 		else if (parent is Door door)
 		{
 			isNearDoor = false;
-			GD.Print("is not near door");
 		}
 	}
 }

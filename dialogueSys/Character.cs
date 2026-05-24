@@ -1,6 +1,7 @@
-using System.Numerics;
-using System.Runtime.ConstrainedExecution;
+
+using System.Collections;
 using Godot;
+using Godot.Collections;
 
 [GlobalClass]
 public partial class Character : Resource
@@ -14,7 +15,13 @@ public partial class Character : Resource
     [Export]
     public Color dialogueTextColor;
     [Export]
-    public int dialogueEncounterId;
+    public int dialogueStartId;
     [Export]
-    public int dialogueCounterId;
+    public int dialogueCompleteID;
+    [Export]
+    public bool isMonster = false;
+
+
+    [Export]
+    public Array<Item.ItemType> request = new();
 }
